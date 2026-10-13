@@ -1,0 +1,11 @@
+{
+  "name": "glamora",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Glamora website with a secure admin panel (zero dependencies)",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node server.js",
+    "set-admin": "node server.js set-admin"
+  }
+}
