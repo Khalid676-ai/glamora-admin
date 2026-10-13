@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glamora</title><meta name="description" content="Glamora: fashion for Men, Women and Children.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF8F4;--ink:#1F1F1F;--beige:#EDE5DA;--gold:#B89B72;--white:#FFF;--mute:#77736E;
+--serif:'Playfair Display',Georgia,serif;--sans:'Inter',system-ui,sans-serif;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;height:100%}
+body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.6 var(--sans)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.12}
+.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin:0 0 16px}
+.btn{display:inline-block;padding:15px 30px;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ink);background:var(--ink);color:var(--white);transition:.3s}
+.btn:hover{background:var(--gold);border-color:var(--gold)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.btn.light{background:transparent;color:var(--white);border-color:var(--white)}
+.btn.light:hover{background:var(--white);color:var(--ink)}
+
+/* image slots: set --img:url(...) on any .ph to use real photography */
+.ph{position:relative;overflow:hidden;background:var(--img,none),var(--tone);background-size:cover;background-position:center}
+.ph svg{position:absolute;inset:0;margin:auto;width:38%;opacity:.35}
+.ph.zoom{transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+
+/* announcement + header */
+.bar{background:var(--ink);color:var(--white);text-align:center;font-size:12px;letter-spacing:.08em;padding:9px 16px;animation:fade 1.2s both}
+header{position:sticky;top:0;z-index:50;background:var(--ivory);transition:box-shadow .3s,background .3s}
+header.scrolled{box-shadow:0 1px 18px rgba(31,31,31,.09);background:rgba(250,248,244,.97)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+.logo{font-family:var(--serif);font-size:28px;letter-spacing:.14em}
+.menu{display:flex;gap:42px;align-items:center}
+.menu>li,.menu>a{list-style:none}
+.menu a.l,.menu button.l{position:relative;background:none;border:0;padding:6px 0;font-size:14px;color:var(--ink)}
+.menu .l::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);transition:width .3s}
+.menu .l:hover::after,.menu .l:focus-visible::after{width:100%}
+ul{margin:0;padding:0}
+.dd{position:relative}
+.dd-panel{position:absolute;top:100%;left:-24px;min-width:180px;background:var(--white);padding:12px 0;box-shadow:0 14px 34px rgba(31,31,31,.1);opacity:0;visibility:hidden;transform:translateY(8px);transition:.3s}
+.dd:hover .dd-panel,.dd:focus-within .dd-panel,.dd.open .dd-panel{opacity:1;visibility:visible;transform:none}
+.dd-panel a{display:block;padding:10px 24px;font-size:14px;transition:.2s}
+.dd-panel a:hover{background:var(--ivory);color:var(--gold)}
+.icons{display:flex;gap:6px;align-items:center}
+.ib{position:relative;background:none;border:0;padding:9px;display:grid;place-items:center;color:var(--ink)}
+.ib:hover{color:var(--gold)}
+.ib svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5}
+.count{position:absolute;top:2px;right:0;background:var(--gold);color:var(--white);font-size:10px;font-weight:500;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center}
+.burger{display:none}
+.drawer{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);background:var(--ivory);z-index:90;padding:26px 28px;transform:translateX(100%);transition:transform .4s cubic-bezier(.2,.7,.2,1);overflow:auto}
+.drawer.open{transform:none}
+.scrim{position:fixed;inset:0;background:rgba(31,31,31,.45);z-index:80;opacity:0;visibility:hidden;transition:.3s}
+.scrim.open{opacity:1;visibility:visible}
+.drawer nav a,.drawer summary{display:block;padding:15px 0;font-family:var(--serif);font-size:22px;border-bottom:1px solid var(--beige);list-style:none;cursor:pointer}
+.drawer details a{font:400 16px var(--sans);padding:12px 0 12px 16px;color:var(--mute)}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 120px);min-height:calc(100svh - 120px);display:flex;align-items:center;overflow:hidden;color:var(--white)}
+.hero .ph{position:absolute;inset:0;--tone:linear-gradient(100deg,#2b2622 0%,#4a4038 45%,#8c7a66 100%);animation:slow 22s ease-out both}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,17,14,var(--ov,.62)),rgba(20,17,14,.05) 70%)}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.hero h1{font-size:clamp(40px,6.4vw,84px);max-width:11em;margin-bottom:22px}
+.hero p.sub{max-width:30em;font-size:18px;color:#efe8de;margin:0 0 36px}
+.hero .eyebrow{color:#d9c3a0}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero .eyebrow,.hero h1,.hero .sub,.hero .cta{animation:up 1s cubic-bezier(.2,.7,.2,1) both}
+.hero h1{animation-delay:.2s}.hero .sub{animation-delay:.5s}.hero .cta{animation-delay:.75s}
+
+section{padding:110px 0}
+.head{text-align:center;max-width:560px;margin:0 auto 56px}
+.head h2{font-size:clamp(32px,4vw,48px);margin-bottom:14px}
+.head p{color:var(--mute);margin:0}
+
+/* collections */
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ccard{position:relative;display:block;aspect-ratio:3/4.3;overflow:hidden;color:var(--white)}
+.ccard:nth-child(2){margin-top:48px}
+.ccard .ph{position:absolute;inset:0}
+.ccard:hover .ph{transform:scale(1.06)}
+.ccard::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,17,14,.7),transparent 55%)}
+.ccard .t{position:absolute;left:30px;right:30px;bottom:30px;z-index:2}
+.ccard h3{font-size:34px;margin-bottom:6px}
+.ccard p{margin:0 0 18px;font-size:15px;color:#efe8de}
+.link{display:inline-flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.16em;font-weight:500;text-transform:uppercase}
+.link span{display:inline-block;transition:transform .3s}
+.ccard:hover .link span,.link:hover span{transform:translateX(7px)}
+.link::after{content:"";}
+
+/* products */
+.products{background:var(--white)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.pcard{display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s;background:var(--white)}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(31,31,31,.09)}
+.pimg{position:relative;aspect-ratio:4/5;overflow:hidden}
+.pimg .ph{position:absolute;inset:0}
+.pcard:hover .ph{transform:scale(1.05)}
+.badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--ink);color:var(--white);font-size:11px;letter-spacing:.08em;padding:4px 10px}
+.qv{position:absolute;left:14px;right:14px;bottom:14px;z-index:2;background:rgba(255,255,255,.95);border:0;padding:11px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;opacity:0;transform:translateY(10px);transition:.3s}
+.pcard:hover .qv,.qv:focus-visible{opacity:1;transform:none}
+@media(hover:none){.qv{opacity:1;transform:none}}
+.pinfo{padding:18px 4px 6px}
+.pinfo h3{font:500 16px var(--sans);margin-bottom:6px}
+.price{font-size:15px}.price s{color:var(--mute);margin-left:8px;font-size:13px}
+.sw{display:flex;gap:7px;margin:12px 0 16px}
+.sw i{width:15px;height:15px;border-radius:50%;border:1px solid rgba(31,31,31,.2)}
+.add{margin-top:auto;width:100%;padding:13px;background:transparent;border:1px solid var(--ink);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:.3s}
+.add:hover{background:var(--ink);color:var(--white)}
+
+/* story */
+.story{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;background:var(--beige);padding:0}
+.story .ph{min-height:560px;--tone:linear-gradient(160deg,#cdbca4,#a58f72 60%,#7e6b52)}
+.story .txt{display:flex;flex-direction:column;justify-content:center;padding:90px clamp(32px,7vw,110px)}
+.story h2{font-size:clamp(34px,4.2vw,54px);margin-bottom:22px}
+.story p.d{color:var(--mute);max-width:30em;margin:0 0 34px}
+.story .btn{align-self:flex-start}
+
+/* values */
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr)}
+.v{padding:12px 44px;text-align:center}
+.v+.v{border-left:1px solid var(--beige)}
+.v svg{width:34px;height:34px;fill:none;stroke:var(--gold);stroke-width:1.2;margin-bottom:20px}
+.v h3{font-size:24px;margin-bottom:10px}
+.v p{color:var(--mute);margin:0;font-size:15px}
+
+/* newsletter */
+.news{background:var(--beige);text-align:center}
+.news h2{font-size:clamp(32px,4vw,46px);margin-bottom:12px}
+.news p{color:var(--mute);margin:0 auto 32px;max-width:30em}
+.news form{display:flex;max-width:520px;margin:0 auto;gap:0}
+.news form input{flex:1;min-width:0;padding:15px 18px;border:1px solid var(--ink);border-right:0;background:var(--white);font:inherit;border-radius:0}
+.news form .btn{border-radius:0}
+.msg{min-height:24px;margin-top:14px;font-size:14px}
+.msg.ok{color:#3d6b4a}.msg.err{color:#a03b32}
+
+footer{background:var(--ink);color:#d8d3cb;padding:70px 0 30px;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
+footer .logo{color:var(--white);font-size:24px}
+footer h4{margin:0 0 14px;color:var(--white);font-weight:500;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+footer li{list-style:none;margin-bottom:9px}
+footer a:hover{color:var(--gold)}
+.copy{border-top:1px solid #3a3733;padding-top:24px;color:#8b867e;font-size:13px}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--white);padding:13px 24px;font-size:14px;opacity:0;pointer-events:none;transition:.4s;z-index:120}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(28px)}}
+@keyframes slow{from{transform:scale(1.07)}}
+
+@media(max-width:1000px){
+.menu{display:none}.burger{display:grid}
+.cgrid{grid-template-columns:1fr;max-width:480px;margin:0 auto}.ccard:nth-child(2){margin-top:0}
+.pgrid{grid-template-columns:repeat(2,1fr)}
+.story{grid-template-columns:1fr}.story .ph{min-height:380px}
+.vgrid{grid-template-columns:1fr;gap:34px}.v+.v{border-left:0;border-top:1px solid var(--beige);padding-top:34px}
+.fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+.wrap{padding:0 20px}section{padding:80px 0}.logo{font-size:23px}
+.pgrid{gap:14px}.pinfo h3{font-size:14px}
+.news form{flex-direction:column;gap:10px}.news form input{border-right:1px solid var(--ink)}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+.menu .l.cur::after{width:100%}
+.hero.ch{min-height:520px}
+.hero.ch .ph{--tone:linear-gradient(100deg,#3a312a 0%,#6b5a48 50%,#b79f80 100%)}
+.hero.ch h1{font-size:clamp(52px,8vw,104px);margin-bottom:20px}
+.hero.ch .eyebrow{color:#e3d0ae}
+.tabs{position:sticky;top:78px;z-index:40;background:var(--ivory);border-bottom:1px solid var(--beige)}
+.tabs .wrap{display:flex;gap:6px;overflow-x:auto;justify-content:center;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;padding:20px 26px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--mute);border-bottom:2px solid transparent;transition:.3s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected=true]{color:var(--ink);border-bottom-color:var(--gold);background:var(--beige)}
+.cgrid{margin-top:0}
+.ccard{aspect-ratio:4/5}.ccard:nth-child(2){margin-top:0}
+.cgrid[data-n="1"]{grid-template-columns:1fr;max-width:980px;margin:0 auto}
+.cgrid[data-n="1"] .ccard{aspect-ratio:16/9}
+.ccard[hidden]{display:none}
+.pop{animation:up .7s cubic-bezier(.2,.7,.2,1) both}
+.fl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.fl button{background:none;border:1px solid var(--beige);padding:10px 22px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:.3s}
+.fl button:hover{border-color:var(--gold)}
+.fl button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--white)}
+.pgrid{grid-template-columns:repeat(3,1fr);gap:34px 26px}
+.wish{position:absolute;top:10px;right:10px;z-index:3;background:rgba(255,255,255,.92);border:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;transition:.3s}
+.wish svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.6;transition:.3s}
+.wish[aria-pressed=true] svg{fill:var(--gold);stroke:var(--gold)}
+.pv{display:inline-block;margin-top:auto;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;border-bottom:1px solid var(--gold);padding-bottom:3px;align-self:flex-start}
+.pv:hover{color:var(--gold)}
+.ctag{font-size:12px;color:var(--mute);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+@media(max-width:1000px){.pgrid{grid-template-columns:repeat(2,1fr)}.cgrid{max-width:none;grid-template-columns:repeat(2,1fr)}.cgrid[data-n="1"]{max-width:720px}.tabs .wrap{justify-content:flex-start}}
+@media(max-width:560px){.cgrid{grid-template-columns:1fr}.pgrid{gap:26px 12px}.tab{padding:18px 18px}.cgrid[data-n="1"] .ccard{aspect-ratio:4/5}}
+
+.hero.ab{min-height:640px}
+.hero.ab .ph{--tone:linear-gradient(100deg,#2f2822 0%,#5e4f40 50%,#a38b6c 100%)}
+.hero.ab h1{font-size:clamp(40px,6vw,78px);max-width:12em;margin-bottom:22px}
+.hero.ab .eyebrow{color:#e3d0ae}
+.story.ab2 .ph{--tone:linear-gradient(160deg,#d4c4ab,#a58f72 60%,#7e6b52)}
+.story .txt p.d{margin-bottom:18px}
+.story .txt p.d:last-of-type{margin-bottom:34px}
+.sec-head{max-width:620px;margin:0 auto 60px;text-align:center}
+.sec-head h2{font-size:clamp(32px,4vw,50px);margin-bottom:14px}
+.sec-head p{color:var(--mute);margin:0}
+.phil{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.pc .ph{aspect-ratio:4/5;margin-bottom:24px}
+.pc:hover .ph{transform:scale(1.05)}
+.pc .box{overflow:hidden}
+.pc h3{font-size:26px;margin-bottom:10px}
+.pc p{color:var(--mute);margin:0;font-size:15px}
+.pc:nth-child(2){margin-top:56px}
+.vals{background:var(--white)}
+.vg4{display:grid;grid-template-columns:repeat(4,1fr)}
+.vg4 .v{padding:8px 32px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:150px;gap:16px}
+.g{position:relative;overflow:hidden}
+.g .ph{position:absolute;inset:0}
+.g:hover .ph{transform:scale(1.05)}
+.g1{grid-column:span 2;grid-row:span 3}.g2{grid-row:span 2}.g3{grid-row:span 3}.g4{grid-row:span 2}.g5{grid-column:span 2;grid-row:span 2}.g6{grid-row:span 1;grid-column:span 2}
+.endcta{display:grid;grid-template-columns:1.1fr 1fr;background:var(--beige);padding:0}
+.endcta .txt{display:flex;flex-direction:column;justify-content:center;padding:90px clamp(32px,7vw,110px)}
+.endcta h2{font-size:clamp(36px,4.6vw,60px);margin-bottom:18px}
+.endcta p.d{color:var(--mute);max-width:28em;margin:0 0 34px}
+.endcta .ph{min-height:520px;--tone:linear-gradient(160deg,#b9a487,#7a6650)}
+.endcta .cta{align-items:center;gap:26px}
+.endcta .link{border-bottom:1px solid var(--gold);padding-bottom:3px}
+@media(max-width:1000px){
+.phil{grid-template-columns:1fr;max-width:520px;margin:0 auto;gap:48px}.pc:nth-child(2){margin-top:0}
+.vg4{grid-template-columns:1fr 1fr;gap:36px 0}.vg4 .v:nth-child(odd){border-left:0}.vg4 .v:nth-child(3){border-left:0}
+.vg4 .v+.v{border-top:0}
+.gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.g1,.g5,.g6{grid-column:span 2}
+.endcta{grid-template-columns:1fr}.endcta .ph{min-height:380px;order:-1}
+}
+@media(max-width:560px){.vg4{grid-template-columns:1fr}.vg4 .v{border-left:0!important;border-top:1px solid var(--beige)!important;padding-top:30px}.vg4 .v:first-child{border-top:0!important}.gal{grid-auto-rows:110px;gap:10px}}
+
+.hero.ct{min-height:560px}
+.hero.ct .ph{--tone:linear-gradient(100deg,#322a24 0%,#65523f 50%,#ad9573 100%)}
+.hero.ct h1{font-size:clamp(46px,7vw,92px);margin-bottom:20px}
+.hero.ct .eyebrow{color:#e3d0ae}
+.icards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ic{background:var(--white);padding:44px 36px;display:flex;flex-direction:column;align-items:flex-start;border:1px solid var(--beige);transition:transform .4s,border-color .4s}
+.ic:hover{transform:translateY(-5px);border-color:var(--gold)}
+.ic svg.i{width:30px;height:30px;fill:none;stroke:var(--gold);stroke-width:1.3;margin-bottom:22px}
+.ic h3{font-size:24px;margin-bottom:8px}
+.ic p{color:var(--mute);margin:0 0 20px;font-size:15px}
+.ic .big{margin-top:auto;font-size:17px;font-weight:500;border-bottom:1px solid var(--gold);padding-bottom:2px;word-break:break-all}
+.ic .big:hover{color:var(--gold)}
+.ic .btn{margin-top:auto}
+.fwrap{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:start}
+.fwrap h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:12px}
+.fwrap>div>p{color:var(--mute);margin:0 0 34px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fld{display:flex;flex-direction:column;gap:7px}.fld.full{grid-column:1/-1}
+.fld label{font-size:13px;font-weight:500}.fld label small{color:var(--mute);font-weight:400}
+.fld input,.fld select,.fld textarea{width:100%;padding:14px 16px;border:1px solid #cfc6b9;background:var(--white);font:inherit;color:var(--ink);border-radius:0;transition:border-color .25s,box-shadow .25s}
+.fld textarea{min-height:150px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,155,114,.25)}
+.fld [aria-invalid=true]{border-color:#a03b32}
+.err{color:#a03b32;font-size:13px;min-height:0}
+.fld[hidden]{display:none}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--mute)}
+.chk input{width:18px;height:18px;margin-top:3px;accent-color:var(--gold);flex:none}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+#sub{width:100%}
+#sub[disabled]{opacity:.6;cursor:wait}
+.fm{margin-top:18px;padding:16px 18px;font-size:14px;border-left:3px solid var(--gold);background:var(--beige)}
+.fm.bad{border-color:#a03b32}.fm.good{border-color:#3d6b4a}
+.fm a{border-bottom:1px solid var(--gold);font-weight:500}
+.side{position:sticky;top:110px}
+.side .ph{aspect-ratio:4/5;--tone:linear-gradient(170deg,#c9b392,#7d6a52);margin-bottom:24px}
+.side h3{font-size:26px;margin-bottom:8px}.side p{color:var(--mute);margin:0}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.tp{background:none;border:0;border-top:1px solid var(--ink);padding:26px 0 0;text-align:left;font:inherit;color:var(--ink)}
+.tp h3{font-size:23px;margin-bottom:10px}.tp p{color:var(--mute);margin:0 0 20px;font-size:15px}
+.tp:hover .link{color:var(--gold)}
+.faq{max-width:820px;margin:0 auto}
+.fq{border-bottom:1px solid #d9d0c3}
+.fq>h3{margin:0;font-family:var(--sans)}
+.fq button{width:100%;display:flex;justify-content:space-between;gap:20px;align-items:center;text-align:left;background:none;border:0;padding:26px 0;font:500 18px/1.4 var(--serif);color:var(--ink)}
+.fq button:hover{color:var(--gold)}
+.fq .pl{flex:none;width:14px;height:14px;position:relative}
+.fq .pl::before,.fq .pl::after{content:"";position:absolute;background:currentColor;transition:transform .35s}
+.fq .pl::before{left:0;right:0;top:6px;height:1.5px}.fq .pl::after{top:0;bottom:0;left:6px;width:1.5px}
+.fq button[aria-expanded=true] .pl::after{transform:scaleY(0)}
+.fa{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s ease}
+.fa.open{grid-template-rows:1fr}
+.fa>div{overflow:hidden}
+.fa p{margin:0;padding:0 40px 26px 0;color:var(--mute)}
+.fa a{border-bottom:1px solid var(--gold);color:var(--ink)}
+.soc{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.soc a{width:50px;height:50px;border:1px solid var(--ink);display:grid;place-items:center;transition:.3s}
+.soc a:hover{background:var(--ink);color:var(--white)}
+.soc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5}
+.endc{position:relative;color:var(--white);text-align:center;padding:120px 0;overflow:hidden}
+.endc .ph{position:absolute;inset:0;--tone:linear-gradient(120deg,#2f2822,#6a5844 60%,#9d8666)}
+.endc::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,.35)}
+.endc .wrap{position:relative;z-index:2}
+.endc h2{font-size:clamp(34px,5vw,60px);margin-bottom:16px}.endc p{margin:0 0 32px;color:#efe8de}
+@media(max-width:1000px){.icards{grid-template-columns:1fr;max-width:520px;margin:0 auto}.fwrap{grid-template-columns:1fr;gap:50px}.side{position:static;order:-1}.side .ph{aspect-ratio:16/10}.tg{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.f2{grid-template-columns:1fr}.tg{grid-template-columns:1fr;gap:26px}.ic{padding:34px 26px}.fq button{font-size:17px}.side{display:none}}
+
+[data-page=home] .pgrid{grid-template-columns:repeat(4,1fr);gap:26px}
+[data-page=home] .ccard{aspect-ratio:3/4.3}
+[data-page=home] .ccard:nth-child(2){margin-top:48px}
+@media(max-width:1000px){[data-page=home] .pgrid{grid-template-columns:repeat(2,1fr)}[data-page=home] .cgrid{grid-template-columns:1fr;max-width:480px;margin:0 auto}[data-page=home] .ccard:nth-child(2){margin-top:0}}
+.pg{animation:fade .5s both}
+.stub{padding:140px 0;text-align:center}.stub h1{font-size:clamp(34px,5vw,56px);margin-bottom:14px}.stub p{color:var(--mute);margin:0 0 30px}
+.hero.bl{min-height:580px}.hero.bl .ph{--tone:linear-gradient(100deg,#2e2721 0%,#62503e 50%,#ab9371 100%)}
+.hero.bl h1{font-size:clamp(40px,6vw,80px);max-width:11em;margin-bottom:22px}.hero.bl .eyebrow{color:#e3d0ae}
+.feat{display:grid;grid-template-columns:1.15fr 1fr;background:var(--white)}
+.feat>.ph{min-height:520px;--tone:linear-gradient(160deg,#d3c3a8,#8e785c)}
+.feat .txt{padding:70px clamp(30px,5vw,80px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.feat h2{font-size:clamp(30px,3.6vw,46px);margin:0 0 18px}.feat p.d{color:var(--mute);margin:0 0 20px}
+.meta{font-size:13px;color:var(--mute);display:flex;gap:8px 14px;flex-wrap:wrap;margin-bottom:28px}
+.kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.cats{display:flex;gap:10px;overflow-x:auto;justify-content:center;padding-bottom:6px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{flex:none;background:none;border:1px solid #d9d0c3;padding:10px 20px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;transition:.3s}
+.cats button:hover{border-color:var(--gold)}.cats button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--white)}
+.sbar{position:relative;max-width:520px;margin:32px auto 0}
+.sbar input{width:100%;padding:14px 44px;border:1px solid #cfc6b9;background:var(--white);font:inherit;border-radius:0}
+.sbar input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,155,114,.25)}
+.sbar svg{position:absolute;left:15px;top:15px;width:18px;height:18px;fill:none;stroke:var(--mute);stroke-width:1.6}
+.sbar button{position:absolute;right:6px;top:6px;width:36px;height:36px;border:0;background:none;font-size:20px;color:var(--mute)}
+.sbar button:hover{color:var(--ink)}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:54px 28px;margin-top:56px}
+.bc{display:flex;flex-direction:column}
+.bimg{aspect-ratio:4/3;position:relative;overflow:hidden;margin-bottom:22px}.bimg .ph{position:absolute;inset:0}
+.bc:hover .ph{transform:scale(1.05)}
+.bc h3{font-size:24px;margin:0 0 10px;line-height:1.25}.bc:hover h3{color:var(--gold)}
+.bc p{margin:0 0 16px;color:var(--mute);font-size:15px}
+.bc .meta{margin:0 0 16px}
+.bc .link{margin-top:auto}.bc:hover .link span{transform:translateX(7px)}
+.empty{grid-column:1/-1;text-align:center;padding:40px 0;color:var(--mute)}
+.empty .btn{margin-top:18px}
+.inspo{position:relative;color:var(--white);padding:130px 0;text-align:center;overflow:hidden}
+.inspo .ph{position:absolute;inset:0;--tone:linear-gradient(120deg,#2d2620,#6d5a45 60%,#a58d6b)}
+.inspo::after{content:"";position:absolute;inset:0;background:rgba(20,17,14,.35)}
+.inspo .wrap{position:relative;z-index:2}.inspo h2{font-size:clamp(36px,5.4vw,66px);margin-bottom:16px}.inspo p.d{margin:0 auto 30px;max-width:30em;color:#efe8de}
+.inspo .eyebrow{color:#e3d0ae}
+.back{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-bottom:34px}.back:hover{color:var(--gold)}
+.ah{max-width:820px;margin:0 auto;text-align:center;padding:70px 28px 40px}
+.ah h1{font-size:clamp(34px,5vw,60px);margin:10px 0 22px}.ah .meta{justify-content:center;margin:0}
+.ahero{max-width:1100px;margin:0 auto 60px;padding:0 28px}.ahero .ph{aspect-ratio:21/9;--tone:linear-gradient(160deg,#cdbca2,#8a7459)}
+.prose{max-width:720px;margin:0 auto;padding:0 28px}
+.prose p{font-size:18px;line-height:1.85;color:#3b3935;margin:0 0 20px}.prose .lead{font-size:21px;color:var(--ink)}
+.prose h2{font-size:31px;margin:48px 0 16px}
+.prose figure{margin:44px -60px}.prose figure .ph{aspect-ratio:16/9;--tone:linear-gradient(160deg,#d6c8b1,#9a846a)}
+.prose figcaption{font-size:13px;color:var(--mute);margin-top:10px;text-align:center}
+.share{max-width:720px;margin:50px auto 0;padding:26px 28px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--beige)}
+.share span{font-size:13px;color:var(--mute);margin-right:6px}
+.share a,.share button{border:1px solid var(--ink);background:none;padding:9px 16px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.share a:hover,.share button:hover{background:var(--ink);color:var(--white)}
+@media(max-width:1000px){.feat{grid-template-columns:1fr}.feat>.ph{min-height:360px}.bgrid{grid-template-columns:repeat(2,1fr)}.cats{justify-content:flex-start}.prose figure{margin:40px 0}}
+@media(max-width:560px){.bgrid{grid-template-columns:1fr;gap:44px}.ah{padding-top:50px}.prose p{font-size:17px}}
+
+.ph.scene>svg{position:absolute;inset:0;margin:0;width:100%;height:100%;opacity:1}
+.ph[style*="--img"] svg{display:none}
+.hero.ct2{min-height:640px;color:var(--ink)}
+.hero.ct2 .ph{--tone:#e3d3bd}
+.hero.ct2::after{background:linear-gradient(90deg,rgba(250,248,244,.9) 0%,rgba(250,248,244,.55) 40%,rgba(250,248,244,0) 68%)}
+.hero.ct2 .eyebrow{color:#8d7249}
+.hero.ct2 h1{font-size:clamp(46px,7vw,94px);margin-bottom:20px}
+.hero.ct2 p.sub{color:#4b4741}
+.cfs{position:relative;overflow:hidden;background:#cdbba5;padding:110px 0 120px}
+.cfs .blob{position:absolute;border-radius:50%;filter:blur(34px);pointer-events:none}
+.cfs .b1{width:420px;height:300px;left:-90px;bottom:-60px;background:radial-gradient(circle at 40% 40%,#e4d2b6,#b89b72 70%)}
+.cfs .b2{width:380px;height:280px;right:-80px;bottom:30px;background:radial-gradient(circle at 60% 40%,#e9d9bf,#a98d66 70%)}
+.cfs .wrap{position:relative;z-index:2}
+.cfh{text-align:center;max-width:560px;margin:0 auto 44px}
+.cfh h2{font-size:clamp(36px,5vw,60px);margin-bottom:14px}.cfh h2 em{font-style:italic}
+.cfh p{margin:0;color:#4b4741}
+.cfcard{max-width:640px;margin:0 auto;background:var(--ivory);border-radius:14px;padding:44px;box-shadow:0 30px 70px rgba(60,45,30,.18)}
+.cfcard .fld label{font-size:12px;font-weight:600;letter-spacing:.02em}
+.cfcard .fld input,.cfcard .fld select,.cfcard .fld textarea{background:var(--beige);border:1px solid transparent;border-radius:6px;padding:14px 16px}
+.cfcard .fld input::placeholder,.cfcard .fld textarea::placeholder{color:#9a948b}
+.cfcard .fld input:focus,.cfcard .fld select:focus,.cfcard .fld textarea:focus{background:var(--white);border-color:var(--gold)}
+.cfcard .fld [aria-invalid=true]{border-color:#a03b32}
+.cfcard .chk input{width:18px;height:18px;padding:0}
+.cfcard #sub::after{content:" →"}
+.cfn{text-align:center;margin:30px 0 0;color:#4b4741;font-size:14px}
+@media(max-width:1000px){.hero.ct2::after{background:linear-gradient(0deg,rgba(250,248,244,.92) 0%,rgba(250,248,244,.6) 55%,rgba(250,248,244,.1) 100%)}.hero.ct2{align-items:flex-end;padding-bottom:50px!important}}
+@media(max-width:560px){.cfcard{padding:28px 20px;border-radius:12px}.cfs{padding:80px 0 90px}}
+.hero.ab{align-items:flex-end;padding-bottom:72px!important}
+.hero.ab .ph{background-position:center 30%}
+.hero.ab::after{background:linear-gradient(0deg,rgba(20,17,14,.82) 0%,rgba(20,17,14,.5) 38%,rgba(20,17,14,0) 68%)}
+@media(max-width:560px){.hero.ab{padding-bottom:48px!important}.hero.ab p.sub{font-size:16px}}
+.ph>svg.art{position:absolute;inset:0;margin:0;width:100%;height:100%;opacity:1}
+.hero.ch{min-height:560px}
+.hero.ch .ph{background-position:80% center}
+@media(max-width:700px){.hero.ch .ph{background-position:84% center}.hero.ch::after{background:linear-gradient(0deg,rgba(20,17,14,.75) 0%,rgba(20,17,14,.25) 60%,rgba(20,17,14,.05) 100%)}.hero.ch{align-items:flex-end;padding-bottom:50px!important}}
+.pimg .ph,.ccard .ph{background-position:center 22%}
+.wh{background:var(--beige);padding:56px 0 90px}
+.whg{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.crumb{font-size:13px;color:var(--mute);margin-bottom:36px}.crumb a:hover{color:var(--gold)}.crumb span{color:var(--ink)}
+.wt h1{font-size:clamp(38px,5vw,68px);margin:0 0 22px}
+.wt .sub{color:var(--mute);max-width:28em;margin:0 0 34px;font-size:17px}
+.wimg .ph{--tone:#e3d3bd;aspect-ratio:4/5;max-height:700px;width:100%;background-position:center 20%}
+@media(max-width:1000px){.whg{grid-template-columns:1fr;gap:36px}.wimg{order:-1}.wimg .ph{aspect-ratio:4/4.8}.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pgrid{gap:26px 12px}}
+.ccard:nth-child(3) .ph,[data-page=children] .wimg .ph,[data-page=children] .pimg .ph{background-position:center 8%}
+[data-page=home] .hero .ph{background-position:80% center}
+@media(max-width:700px){[data-page=home] .hero .ph{background-position:84% center}[data-page=home] .hero::after{background:linear-gradient(0deg,rgba(20,17,14,.78) 0%,rgba(20,17,14,.3) 60%,rgba(20,17,14,.05) 100%)}[data-page=home] .hero{align-items:flex-end;padding-bottom:50px!important}}
+[data-page=home] .story .ph{background-position:center 12%}
+
+.hero.center .wrap{text-align:center}.hero.center .cta{justify-content:center}.hero.center h1,.hero.center p.sub{margin-left:auto;margin-right:auto}
+.prose ul{margin:0 0 20px;padding-left:22px}.prose li{font-size:18px;line-height:1.8;color:#3b3935;margin-bottom:6px}.prose a{border-bottom:1px solid var(--gold)}
+</style>
+</head>
+<body>
+<div class="bar">Discover Your Style — New Season Collection Now Available</div>
+
+<header id="hdr">
+<div class="wrap nav">
+  <a href="#/" class="logo" aria-label="Glamora home">GLAMORA</a>
+  <ul class="menu" aria-label="Main">
+    <li><a class="l" href="#/">Home</a></li>
+    <li class="dd" id="dd">
+      <button class="l" aria-haspopup="true" aria-expanded="false" id="ddb">Collections ▾</button>
+      <div class="dd-panel"><a href="#/collections/men">Men</a><a href="#/collections/women">Women</a><a href="#/collections/children">Children</a></div>
+    </li>
+    <li><a class="l" href="#/about">About Us</a></li>
+    <li><a class="l" href="#/blogs">Blogs</a></li>
+    <li><a class="l" href="#/contact">Contact Us</a></li>
+  </ul>
+  <div class="icons">
+    <button class="ib" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    <a class="ib" href="#/account" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></a>
+    <button class="ib" aria-label="Shopping bag"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span class="count" id="count">0</span></button>
+    <button class="ib burger" id="burger" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </div>
+</div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Mobile menu" aria-hidden="true">
+  <button class="ib" id="close" aria-label="Close menu" style="margin-left:auto"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <nav>
+    <a href="#/">Home</a>
+    <details><summary>Collections</summary><a href="#/collections/men">Men</a><a href="#/collections/women">Women</a><a href="#/collections/children">Children</a></details>
+    <a href="#/about">About Us</a><a href="#/blogs">Blogs</a><a href="#/contact">Contact Us</a>
+  </nav>
+</aside>
+
+<div id="view" data-page="home"></div>
+
+
+<footer>
+<div class="wrap">
+  <div class="fgrid">
+    <div><a class="logo" href="#/">GLAMORA</a><p style="max-width:22em;margin-top:14px">Fashion for Men, Women, and Children.</p></div>
+    <div><h4>Collections</h4><ul><li><a href="#/collections/men">Men</a></li><li><a href="#/collections/women">Women</a></li><li><a href="#/collections/children">Children</a></li></ul></div>
+    <div><h4>Glamora</h4><ul><li><a href="#/about">About Us</a></li><li><a href="#/blogs">Blogs</a></li><li><a href="#/contact">Contact Us</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a data-phone href="#"></a></li><li><a data-email href="#"></a></li></ul></div>
+  </div>
+  <div class="copy">© 2026 Glamora. All rights reserved.</div>
+</div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ===== Glamora site: one place to edit contact details, social links, endpoints and images ===== */
+const CONFIG={phoneDisplay:"0310 0960639",phoneTel:"+923100960639",email:"khalidsafdar676@gmail.com",
+ social:{instagram:"",facebook:"",pinterest:"",tiktok:""},
+ formEndpoint:"",        /* server route that emails contact messages */
+ newsletterEndpoint:""}; /* server route that stores newsletter signups */
+const IMAGES={about:{hero:"",story:"",p1:"",p2:"",p3:"",men:"",women:"",children:"",g1:"",g2:"",g3:"",g4:"",g5:"",g6:"",cta:""},contact:{hero:"",side:"",cta:""},collections:{hero:""}};
+const WI={"p1": "", "p2": "", "p3": "", "p4": ""};IMAGES.about.women=WI.p4;IMAGES.women={hero:WI.p4};
+const WM={"p1": "", "p2": "", "p3": "", "p4": "", "p5": ""};IMAGES.about.men=WM.p4;IMAGES.men={hero:WM.p4};
+const WK={"p1": "", "p2": "", "p3": "", "p4": ""};IMAGES.about.children=WK.p1;IMAGES.children={hero:WK.p1};
+const WS="";
+const $=id=>document.getElementById(id),qa=s=>document.querySelectorAll(s);
+const fmt=n=>"Rs. "+n.toLocaleString("en-PK");
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let cart=0;
+const toast=$("toast");let tt;
+function say(t){toast.textContent=dec(t);toast.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove("show"),2400)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+const observe=()=>qa(".rv:not(.in)").forEach(el=>io.observe(el));
+const ICONS={top:'<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5"><path d="M20 10l-12 8 6 8 6-4v32h24V22l6 4 6-8-12-8c-2 4-6 6-12 6s-10-2-12-6z"/></svg>',dress:'<svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5"><path d="M24 6l8 8 8-8 4 14-6 6 10 32H16l10-32-6-6 4-14z"/></svg>'};
+const imgs=pg=>qa("[data-img]").forEach(el=>{const u=(IMAGES[pg]||{})[el.dataset.img];if(u)el.style.setProperty("--img","url('"+u+"')")});
+const bindContact=()=>{qa("[data-phone]").forEach(a=>{a.href="tel:"+CONFIG.phoneTel;a.textContent=CONFIG.phoneDisplay});qa("[data-email]").forEach(a=>{a.href="mailto:"+CONFIG.email;a.textContent=CONFIG.email})};
+
+/* ---------- blog data (edit freely) ---------- */
+let ARTICLES=[
+{slug:"build-a-timeless-wardrobe",featured:true,kicker:"Style Guide",title:"How to Build a Timeless Wardrobe",excerpt:"Discover versatile wardrobe essentials, thoughtful combinations, and simple styling ideas that help you create outfits for different occasions.",cat:"Wardrobe Essentials",min:5,date:"Oct 8, 2026",tone:"linear-gradient(160deg,#d3c3a8,#8e785c)",alt:"Coordinated neutral outfits and classic wardrobe essentials",
+ intro:"A timeless wardrobe is less about owning more and more about owning pieces that work together. Start with what you reach for most, then build outward.",
+ body:[["Start with a calm color base","Choose a few neutral shades you enjoy wearing, such as ivory, beige, charcoal or navy. When most pieces share a base, almost everything can be mixed with everything else."],["Choose pieces that do more than one job","A well-fitting shirt can be worn open over a tee, buttoned up for a smarter look, or tucked in for a dressier one. Before adding something new, ask how many outfits it could join."],["Add personality in small steps","Once the base is in place, bring in a scarf, a bold color or an interesting texture. Small touches let you refresh familiar outfits without starting over."]]},
+{slug:"effortless-everyday-style-for-women",title:"Effortless Everyday Style for Women",excerpt:"Explore versatile outfit combinations that balance comfort, confidence, and contemporary style.",cat:"Women's Fashion",min:4,date:"Oct 5, 2026",tone:"linear-gradient(160deg,#c9b392,#8a7258)",alt:"Woman in a relaxed contemporary outfit",
+ intro:"Everyday style works best when it feels easy. These ideas focus on combinations that are comfortable to wear and simple to repeat.",
+ body:[["Pick one hero piece","Let one item lead, perhaps a flowing dress or a structured jacket, and keep everything else quiet. This keeps an outfit balanced without much effort."],["Mind proportions","Pair something relaxed with something more fitted. A loose top with slim trousers, or a fitted top with a wide skirt, often looks considered."],["Finish with comfort in mind","Shoes and layers should suit your day. An outfit you feel at ease in tends to look more confident too."]]},
+{slug:"mens-wardrobe-essentials-worth-knowing",title:"Men's Wardrobe Essentials Worth Knowing",excerpt:"Discover classic clothing staples and practical ways to combine them for different occasions.",cat:"Men's Fashion",min:5,date:"Oct 2, 2026",tone:"linear-gradient(170deg,#6b6155,#2f2a25)",alt:"Menswear essentials laid out neatly",
+ intro:"A small group of reliable pieces can cover most occasions. Here is a practical way to think about the basics.",
+ body:[["The everyday shirt","A clean, well-fitting shirt in a neutral shade is a useful starting point. Wear it tucked or untucked, under a jacket or on its own."],["A dependable outer layer","A casual jacket adds structure to simple outfits and works across seasons when chosen in a versatile color."],["Trousers that fit well","Fit matters more than trend. Trousers that sit comfortably and hang cleanly make everything above them look better."]]},
+{slug:"comfort-meets-style-dressing-kids",title:"Comfort Meets Style: Dressing Kids for Every Day",excerpt:"Explore practical outfit ideas that combine comfort, movement, and playful style for children.",cat:"Kids' Style",min:4,date:"Sep 28, 2026",tone:"linear-gradient(170deg,#b8a58a,#6f5f4b)",alt:"Children in comfortable, stylish outfits",
+ intro:"Children need clothes they can move in, and parents like outfits that look good. The two goals fit together well.",
+ body:[["Let them move","Soft fabrics and easy fits make it simpler for kids to play, climb and run. Check that waistbands and sleeves feel comfortable."],["Mix and match","Choose a few pieces in colors that go together. Children can then put outfits together on their own, which many enjoy."],["Keep a little playfulness","A bright color or a fun print adds charm without making an outfit hard to wear day to day."]]},
+{slug:"five-simple-ways-to-refresh-your-outfit",title:"Five Simple Ways to Refresh Your Outfit",excerpt:"Learn how accessories, color combinations, and thoughtful layering can transform familiar pieces.",cat:"Styling Tips",min:3,date:"Sep 24, 2026",tone:"linear-gradient(160deg,#d2c0a4,#9a846a)",alt:"Layered outfit with accessories",
+ intro:"You do not always need something new. A few small changes can make a familiar outfit feel fresh.",
+ body:[["Change the layer","Add a jacket, cardigan or waistcoat to give a favorite outfit a different shape."],["Try a new color pairing","Swap one neutral for another, or add a single accent color to an all-neutral look."],["Play with accessories","A scarf, belt or simple jewelry can shift the mood of an outfit in seconds."],["Adjust the fit","Rolling sleeves, tucking a shirt or cuffing trousers changes the silhouette without changing the clothes."],["Rework the shoes","A different pair of shoes can move the same outfit from relaxed to polished."]]},
+{slug:"fashion-trends-to-inspire-your-next-look",title:"Fashion Trends to Inspire Your Next Look",excerpt:"Explore contemporary silhouettes, colors, and styling ideas that can inspire your personal wardrobe.",cat:"Fashion Trends",min:5,date:"Sep 20, 2026",tone:"linear-gradient(170deg,#c3b399,#7d6b55)",alt:"Contemporary silhouettes and seasonal colors",
+ intro:"Trends are best used as inspiration. Take what suits you and leave the rest.",
+ body:[["Silhouettes to explore","Relaxed shapes, long layers and clean tailoring all have fans. Try one in a piece you already like before committing to a full look."],["Colors to consider","Earthy neutrals and soft tones sit well with most wardrobes and are easy to combine with what you own."],["Make it personal","The strongest looks feel like the wearer. Borrow an idea, then adapt it to your own taste and routine."]]},
+{slug:"versatile-wardrobe-on-a-budget",title:"Building a Versatile Wardrobe on a Budget",excerpt:"Learn how to prioritize useful pieces and create more outfit combinations from your existing wardrobe.",cat:"Wardrobe Essentials",min:6,date:"Sep 15, 2026",tone:"linear-gradient(160deg,#c4b093,#8c7459)",alt:"Neatly organized wardrobe with versatile pieces",
+ intro:"A flexible wardrobe does not need a large budget. It needs a little planning.",
+ body:[["Look at what you already have","Lay out your clothes and note what you wear often. Gaps and duplicates usually become clear quickly."],["Prioritize pieces that combine well","Before buying, picture three outfits with the item using things you already own. If you can't, it may be best to wait."],["Buy with intention","Choose fewer pieces that you will wear often over many that stay in the cupboard. Plan purchases around the gaps you found."]]}
+];
+
+/* ---------- page: home ---------- */
+function initHome(){
+ let P=[
+  {id:1,name:"Printed Lawn Suit",price:4990,was:null,colors:["#C9D83A","#D63F8F"],image:WI.p2,pos:20,alt:"Woman wearing a lime green rose-print kurta with matching dupatta"},
+  {id:2,name:"Stone Classic Kameez",price:4490,was:null,colors:["#BDAE9A","#1F1F1F"],image:WM.p1,pos:18,alt:"Man wearing a stone-coloured collared kameez with matching shalwar"},
+  {id:3,name:"Girls Mint Heart Print Set",price:2990,was:3490,colors:["#A8DCCB","#F2C4B8"],image:WK.p2,pos:8,alt:"Girl wearing a mint heart-print top and culottes set"},
+  {id:4,name:"Blossom Pink Printed Kurta",price:5490,was:null,colors:["#F0B6C4","#C9A0D8"],image:WI.p3,pos:20,alt:"Woman wearing a pink kurta with delicate floral print and scalloped trim"}];
+ P=homeProducts()||P;
+ const g=$("pgrid");
+ g.innerHTML=P.map((p,i)=>`<article class="pcard rv" style="transition-delay:${i*.1}s"><div class="pimg">${p.was?`<span class="badge">-${Math.round((1-p.price/p.was)*100)}%</span>`:""}<div class="ph zoom" role="img" aria-label="${esc(p.alt)}" style="--tone:#e3d3bd;--img:url('${p.image}');background-position:center ${p.pos}%"></div><button class="qv" data-q="${p.id}">Quick view</button></div><div class="pinfo"><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.was?`<s>${fmt(p.was)}</s>`:""}</div><div class="sw">${p.colors.map(c=>`<i style="background:${c}"></i>`).join("")}</div><button class="add" data-a="${p.id}">Add to bag</button></div></article>`).join("");
+ g.addEventListener("click",e=>{const a=e.target.closest("[data-a]"),q=e.target.closest("[data-q]");
+  if(a){const p=P.find(x=>x.id==a.dataset.a);cart++;$("count").textContent=cart;say(p.name+" added to your bag")}
+  if(q){const p=P.find(x=>x.id==q.dataset.q);say(p.name+" — "+fmt(p.price)+". Product pages come with the shop build.")}});
+ applyHome();initNews();
+}
+
+/* ---------- shared newsletter (never fakes success) ---------- */
+function initNews(){
+ const f=$("nf");if(!f)return;let busy=false;
+ f.addEventListener("submit",async e=>{e.preventDefault();if(busy)return;
+  const v=$("em").value.trim(),m=$("nm");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){m.className="msg err";m.textContent="Enter a valid email address, like name@example.com.";return}
+  if(!CONFIG.newsletterEndpoint){m.className="msg err";m.textContent="Subscriptions are not connected yet, so your email was not saved.";return}
+  busy=true;m.className="msg";m.textContent="Subscribing…";
+  try{const r=await fetch(CONFIG.newsletterEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:v})});if(!r.ok)throw 0;m.className="msg ok";m.textContent="Thanks for subscribing.";f.reset()}
+  catch(_){m.className="msg err";m.textContent="Something went wrong and you were not subscribed. Please try again."}
+  finally{busy=false}});
+}
+
+/* ---------- page: collections ---------- */
+function initCollections(){
+ {const hh=document.querySelector(".hero.ch .ph");if(hh&&DATA)hh.style.setProperty("--img","url('/uploads/family-banner.jpg')")}
+ let COLS=[{id:"men",title:"Men",desc:"Modern essentials. Timeless confidence.",cta:"Shop Men",href:"#/collections/men",tone:"linear-gradient(170deg,#6b6155,#2f2a25)",image:WM.p4,alt:"Man in a forest green kameez"},{id:"women",title:"Women",desc:"Effortless elegance for every occasion.",cta:"Shop Women",href:"#/collections/women",tone:"linear-gradient(170deg,#c9b392,#8a7258)",image:WI.p4,alt:"Woman in a yellow embroidered kurta"},{id:"children",title:"Children",desc:"Comfort, color, and everyday charm.",cta:"Shop Children",href:"#/collections/children",tone:"linear-gradient(170deg,#b8a58a,#6f5f4b)",image:WK.p1,alt:"Smiling girl in a sun-print tee and pink striped trousers"}];
+ let P=[{slug:"charcoal-collared-kameez",cat:"men",name:"Charcoal Collared Kameez",price:3990,was:4990,colors:["#4F5357","#BDAE9A"],tone:"linear-gradient(160deg,#ddd2bf,#b9a98d)",icon:"top",image:WM.p2,alt:"Man wearing a charcoal collared kameez beside a cane-back chair"},{slug:"forest-green-kameez",cat:"men",name:"Forest Green Kameez",price:5990,was:null,colors:["#1E3A33","#1F1F1F"],tone:"linear-gradient(160deg,#8d7d69,#55493b)",icon:"top",image:WM.p4,alt:"Man wearing a deep forest green kameez in soft sunlight"},{slug:"floral-border-print-kurta",cat:"women",name:"Floral Border Print Kurta",price:6990,was:8490,colors:["#3B4A6B","#C9547A","#C9A24A"],tone:"linear-gradient(160deg,#c4b093,#8c7459)",icon:"dress",image:WI.p1,alt:"Woman wearing a navy floral printed long kurta with a golden border, seen from behind"},{slug:"printed-lawn-suit",cat:"women",name:"Printed Lawn Suit",price:4990,was:null,colors:["#C9D83A","#D63F8F"],tone:"linear-gradient(160deg,#d3c1a6,#a58f72)",icon:"dress",image:WI.p2,alt:"Woman wearing a lime green rose-print kurta with matching dupatta"},{slug:"boys-rocket-print-set",cat:"children",name:"Boys Rocket Print Set",price:2490,was:null,colors:["#E4B52A","#E9E1D3"],tone:"linear-gradient(160deg,#c9d0cf,#8e9a99)",icon:"top",image:WK.p4,alt:"Boy wearing a yellow rocket-print tee with cream shorts"},{slug:"girls-mint-heart-set",cat:"children",name:"Girls Mint Heart Print Set",price:2990,was:3490,colors:["#A8DCCB","#F2C4B8"],tone:"linear-gradient(160deg,#e3d3c6,#b99f8a)",icon:"dress",image:WK.p2,alt:"Girl wearing a mint heart-print top and culottes set"}];
+ if(DATA){COLS=DATA.collections.map(adaptC);P=DATA.products.map(adaptP)}
+ const cg=$("cgrid");
+ cg.innerHTML=COLS.map(c=>`<a class="ccard rv" data-id="${c.id}" href="${c.href}" aria-label="${c.cta}"><div class="ph zoom" role="img" aria-label="${esc(c.alt)}" style="--tone:${c.tone};${c.image?`--img:url('${c.image}')`:""}"></div><div class="t"><h3>${c.title.toUpperCase()}</h3><p>${c.desc}</p><span class="link">${c.cta} <span>→</span></span></div></a>`).join("");
+ cg.querySelectorAll(".ccard").forEach((el,i)=>el.style.transitionDelay=i*.12+"s");
+ function showTab(id){let n=0;cg.querySelectorAll(".ccard").forEach(el=>{const on=id==="all"||el.dataset.id===id;el.hidden=!on;if(on){n++;el.classList.add("in");el.style.transitionDelay="0s";el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}});cg.dataset.n=n;qa(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.c===id))}
+ qa(".tab").forEach(t=>t.addEventListener("click",()=>showTab(t.dataset.c)));showTab("all");
+ const heart='<svg viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/></svg>';
+ const wish=new Set();let cat="all";
+ $("fl").innerHTML=[["all","All"],["men","Men"],["women","Women"],["children","Children"]].map(([k,l])=>`<button data-f="${k}" aria-pressed="${k==="all"}">${l}</button>`).join("");
+ function render(){$("pgrid").innerHTML=pick(P,cat).map((p,i)=>`<article class="pcard pop" style="animation-delay:${i*.07}s"><div class="pimg">${p.was?`<span class="badge">-${Math.round((1-p.price/p.was)*100)}%</span>`:""}<button class="wish" data-w="${p.slug}" aria-pressed="${wish.has(p.slug)}" aria-label="Save ${p.name} to wishlist">${heart}</button><div class="ph zoom" role="img" aria-label="${esc(p.alt)}" style="--tone:${p.tone};${p.image?`--img:url('${p.image}')`:""};background-position:center ${p.pos??22}%">${p.image?"":ICONS[p.icon]}</div></div><div class="pinfo" style="display:flex;flex-direction:column;flex:1"><div class="ctag">${p.cat}</div><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.was?`<s>${fmt(p.was)}</s>`:""}</div><div class="sw">${p.colors.map(c=>`<i style="background:${c}"></i>`).join("")}</div><a class="pv" href="#/products/${p.slug}">View product</a></div></article>`).join("")}
+ render();
+ $("fl").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;cat=b.dataset.f;$("fl").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));render()});
+ $("pgrid").addEventListener("click",e=>{const w=e.target.closest("[data-w]");if(!w)return;const k=w.dataset.w;wish.has(k)?wish.delete(k):wish.add(k);w.setAttribute("aria-pressed",wish.has(k))});
+}
+
+
+function initWomen(){
+ imgs("women");
+ const heart='<svg viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/></svg>';
+ /* Sample products: edit names, prices, colors and photos here */
+ let W=[
+  {slug:"floral-border-print-kurta",name:"Floral Border Print Kurta",price:6990,was:8490,colors:["#3B4A6B","#C9547A","#C9A24A"],image:WI.p1,alt:"Woman wearing a navy floral printed long kurta with a golden border, seen from behind"},
+  {slug:"printed-lawn-suit",name:"Printed Lawn Suit",price:4990,was:null,colors:["#C9D83A","#D63F8F"],image:WI.p2,alt:"Woman wearing a lime green rose-print kurta with matching dupatta"},
+  {slug:"blossom-pink-printed-kurta",name:"Blossom Pink Printed Kurta",price:5490,was:null,colors:["#F0B6C4","#C9A0D8"],image:WI.p3,alt:"Woman wearing a pink kurta with delicate floral print and scalloped trim"},
+  {slug:"sunshine-embroidered-kurta",name:"Sunshine Embroidered Kurta",price:6490,was:7990,colors:["#E9C42E","#E8809A"],image:WI.p4,alt:"Woman wearing a yellow kurta with floral print and an embroidered neckline"}];
+ W=shopList("women")||W;heroFor("women");
+ const wish=new Set();
+ function draw(){$("wgrid").innerHTML=W.map((p,i)=>`<article class="pcard rv" style="transition-delay:${i*.08}s"><div class="pimg">${p.was?`<span class="badge">-${Math.round((1-p.price/p.was)*100)}%</span>`:""}<button class="wish" data-w="${p.slug}" aria-pressed="${wish.has(p.slug)}" aria-label="Save ${p.name} to wishlist">${heart}</button><div class="ph zoom" role="img" aria-label="${esc(p.alt)}" style="--tone:#e3d3bd;--img:url('${p.image}');background-position:center ${p.pos??22}%"></div></div><div class="pinfo" style="display:flex;flex-direction:column;flex:1"><div class="ctag">Women</div><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.was?`<s>${fmt(p.was)}</s>`:""}</div><div class="sw" aria-label="Available colors">${p.colors.map(c=>`<i style="background:${c}"></i>`).join("")}</div><a class="pv" href="#/products/${p.slug}">View product</a></div></article>`).join("")||'<p style="grid-column:1/-1;text-align:center;color:var(--mute)">New styles are coming soon.</p>';observe()}
+ draw();
+ $("wgrid").addEventListener("click",e=>{const w=e.target.closest("[data-w]");if(!w)return;const k=w.dataset.w;wish.has(k)?wish.delete(k):wish.add(k);w.setAttribute("aria-pressed",wish.has(k))});
+}
+
+function initKids(){
+ imgs("children");
+ const heart='<svg viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/></svg>';
+ /* Sample products: edit names, prices, colors and photos here */
+ let W=[
+  {slug:"sunshine-tee-striped-set",name:"Sunshine Tee & Striped Culottes",price:2790,was:null,colors:["#FFFFFF","#EFA6BC"],image:WK.p1,alt:"Smiling girl in a sun-print tee and pink striped culottes"},
+  {slug:"girls-mint-heart-set",name:"Girls Mint Heart Print Set",price:2990,was:3490,colors:["#A8DCCB","#F2C4B8"],image:WK.p2,alt:"Girl wearing a mint heart-print top and culottes set"},
+  {slug:"blush-ruffle-baby-romper",name:"Blush Ruffle Baby Romper",price:2290,was:2690,colors:["#E2B5B5","#F0D9D2"],image:WK.p3,alt:"Baby wearing a blush pink romper with ruffle shoulders and lace detail"},
+  {slug:"boys-rocket-print-set",name:"Boys Rocket Print Set",price:2490,was:null,colors:["#E4B52A","#E9E1D3"],image:WK.p4,alt:"Boy wearing a yellow rocket-print tee with cream shorts"}];
+ W=shopList("children")||W;heroFor("children");
+ const wish=new Set();
+ function draw(){$("kgrid").innerHTML=W.map((p,i)=>`<article class="pcard rv" style="transition-delay:${i*.08}s"><div class="pimg">${p.was?`<span class="badge">-${Math.round((1-p.price/p.was)*100)}%</span>`:""}<button class="wish" data-w="${p.slug}" aria-pressed="${wish.has(p.slug)}" aria-label="Save ${p.name} to wishlist">${heart}</button><div class="ph zoom" role="img" aria-label="${esc(p.alt)}" style="--tone:#e3d3bd;--img:url('${p.image}');background-position:center ${p.pos??22}%"></div></div><div class="pinfo" style="display:flex;flex-direction:column;flex:1"><div class="ctag">Children</div><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.was?`<s>${fmt(p.was)}</s>`:""}</div><div class="sw" aria-label="Available colors">${p.colors.map(c=>`<i style="background:${c}"></i>`).join("")}</div><a class="pv" href="#/products/${p.slug}">View product</a></div></article>`).join("")||'<p style="grid-column:1/-1;text-align:center;color:var(--mute)">New styles are coming soon.</p>';observe()}
+ draw();
+ $("kgrid").addEventListener("click",e=>{const w=e.target.closest("[data-w]");if(!w)return;const k=w.dataset.w;wish.has(k)?wish.delete(k):wish.add(k);w.setAttribute("aria-pressed",wish.has(k))});
+}
+
+function initMen(){
+ imgs("men");
+ const heart='<svg viewBox="0 0 24 24"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-3 4.5 4.5 0 018 3c0 6-8 11-8 11z"/></svg>';
+ /* Sample products: edit names, prices, colors and photos here */
+ let W=[
+  {slug:"stone-classic-kameez",name:"Stone Classic Kameez",price:4490,was:null,colors:["#BDAE9A","#1F1F1F"],image:WM.p1,alt:"Man wearing a stone-coloured collared kameez with matching shalwar"},
+  {slug:"charcoal-collared-kameez",name:"Charcoal Collared Kameez",price:3990,was:4990,colors:["#4F5357","#BDAE9A"],image:WM.p2,alt:"Man wearing a charcoal collared kameez beside a cane-back chair"},
+  {slug:"midnight-black-kameez",name:"Midnight Black Kameez",price:4790,was:null,colors:["#1F1F1F","#4F5357"],image:WM.p3,alt:"Man wearing a black collared kameez"},
+  {slug:"forest-green-kameez",name:"Forest Green Kameez",price:5990,was:null,colors:["#1E3A33","#1F1F1F"],image:WM.p4,alt:"Man wearing a deep forest green kameez in soft sunlight"},
+  {slug:"sage-shalwar-kameez-set",name:"Sage Shalwar Kameez Set",price:6490,was:7490,colors:["#A9AE9C","#BDAE9A"],image:WM.p5,alt:"Man wearing a sage green kameez and shalwar set with brown sandals"}];
+ W=shopList("men")||W;heroFor("men");
+ const wish=new Set();
+ function draw(){$("mgrid").innerHTML=W.map((p,i)=>`<article class="pcard rv" style="transition-delay:${i*.08}s"><div class="pimg">${p.was?`<span class="badge">-${Math.round((1-p.price/p.was)*100)}%</span>`:""}<button class="wish" data-w="${p.slug}" aria-pressed="${wish.has(p.slug)}" aria-label="Save ${p.name} to wishlist">${heart}</button><div class="ph zoom" role="img" aria-label="${esc(p.alt)}" style="--tone:#e3d3bd;--img:url('${p.image}');background-position:center ${p.pos??22}%"></div></div><div class="pinfo" style="display:flex;flex-direction:column;flex:1"><div class="ctag">Men</div><h3>${p.name}</h3><div class="price">${fmt(p.price)}${p.was?`<s>${fmt(p.was)}</s>`:""}</div><div class="sw" aria-label="Available colors">${p.colors.map(c=>`<i style="background:${c}"></i>`).join("")}</div><a class="pv" href="#/products/${p.slug}">View product</a></div></article>`).join("")||'<p style="grid-column:1/-1;text-align:center;color:var(--mute)">New styles are coming soon.</p>';observe()}
+ draw();
+ $("mgrid").addEventListener("click",e=>{const w=e.target.closest("[data-w]");if(!w)return;const k=w.dataset.w;wish.has(k)?wish.delete(k):wish.add(k);w.setAttribute("aria-pressed",wish.has(k))});
+}
+
+/* ---------- page: contact ---------- */
+function initContact(){
+ const toForm=focus=>{$("form").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});if(focus)setTimeout(()=>$(focus).focus({preventScroll:true}),reduce?0:600)};
+ qa("[data-go]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toForm("n")}));
+ qa("[data-sub]").forEach(b=>b.addEventListener("click",()=>{$("s").value=b.dataset.sub;syncOrder();toForm("n")}));
+ const ORD=["Order Status","Shipping and Delivery","Returns and Exchanges"];
+ const syncOrder=()=>{$("ow").hidden=!ORD.includes($("s").value)};$("s").addEventListener("change",syncOrder);
+ const FAQ=[["How can I contact Glamora about a product?","Browse the <a href=\"#/collections\">Collections</a> to find the item, then send us a message with the product name using the form above and choose Product Information."],["How can I ask about my order?","Use the form above and choose Order Status or Shipping and Delivery. Add your order number if you have one. You can also email or call us using the details at the top of this page."],["Where can I find sizing information?","Check the product page for details where they are provided. If you can't find what you need, choose Sizing Assistance in the form and tell us which product you're looking at."],["How can I ask about returns or exchanges?","Choose Returns and Exchanges in the form above and tell us about your order. Our team will explain the options available for your situation."],["How can I contact Glamora about a collaboration?","Choose Collaboration in the form above and tell us a little about your idea. We'll read it and get back to you."]];
+ $("faq").innerHTML=FAQ.map((f,i)=>`<div class="fq"><h3><button id="q${i}" aria-expanded="false" aria-controls="a${i}">${f[0]}<span class="pl" aria-hidden="true"></span></button></h3><div class="fa" id="a${i}" role="region" aria-labelledby="q${i}"><div><p>${f[1]}</p></div></div></div>`).join("");
+ $("faq").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const o=b.getAttribute("aria-expanded")!=="true";b.setAttribute("aria-expanded",o);$(b.getAttribute("aria-controls")).classList.toggle("open",o)});
+ const IC={instagram:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>',facebook:'<svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 00-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg>',pinterest:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M11 8c3-1 5 1 4 4s-3 3-4 2M11 11l-2 9"/></svg>',tiktok:'<svg viewBox="0 0 24 24"><path d="M14 3v11a4 4 0 11-4-4M14 3c0 3 2 5 5 5"/></svg>'};
+ const sl=Object.entries(CONFIG.social).filter(([,u])=>u);
+ $("soc").innerHTML=sl.length?sl.map(([k,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" aria-label="Glamora on ${k}">${IC[k]}</a>`).join(""):'<p style="color:var(--mute);margin:0">Our social accounts will be linked here soon.</p>';
+ const f=$("cf"),fm=$("fm");let busy=false;
+ const setErr=(id,msg)=>{const i=$(id),e=$(id+"-e");if(!e)return;e.textContent=msg;i.setAttribute("aria-invalid",!!msg)};
+ function validate(){let first=null;const bad=(id,m)=>{setErr(id,m);first=first||$(id)};["n","e","p","m","pv"].forEach(id=>setErr(id,""));const v=id=>$(id).value.trim();
+  if(!v("n"))bad("n","Enter your full name.");
+  if(!v("e"))bad("e","Enter your email address.");else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("e")))bad("e","Enter a valid email address, like name@example.com.");
+  if(v("p")&&!/^\+?[\d\s\-()]{7,20}$/.test(v("p")))bad("p","Use digits, spaces, + or dashes, for example +92 300 0000000.");
+  if(!v("m"))bad("m","Write a message so we know how to help.");
+  if(!$("pv").checked)bad("pv","Please confirm you have read the Privacy Policy.");
+  if(first)first.focus();return !first}
+ f.addEventListener("submit",async e=>{e.preventDefault();if(busy)return;fm.className="";fm.textContent="";if(!validate())return;
+  const d=Object.fromEntries(new FormData(f));if(d.website)return;
+  if(!CONFIG.formEndpoint){const body=encodeURIComponent(`Name: ${d.name}\nEmail: ${d.email}\nPhone: ${d.phone||"-"}\n${d.order?"Order number: "+d.order+"\n":""}\n${d.message}`);fm.className="fm bad";fm.innerHTML=`Your message was <strong>not sent</strong>. The form is not connected to an email service yet. You can send it right now from your email app: <a href="mailto:${CONFIG.email}?subject=${encodeURIComponent(d.subject)}&body=${body}">Open email draft</a>.`;return}
+  busy=true;const b=$("sub");b.disabled=true;b.textContent="Sending…";
+  try{const r=await fetch(CONFIG.formEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});if(!r.ok)throw 0;fm.className="fm good";fm.textContent="Thank you. Your message has been received and our team will reply to you by email.";f.reset();syncOrder()}
+  catch(_){fm.className="fm bad";fm.innerHTML=`Something went wrong and your message was not sent. Please try again, or email us at <a href="mailto:${CONFIG.email}">${esc(CONFIG.email)}</a>.`}
+  finally{busy=false;b.disabled=false;b.textContent="Send Message"}});
+}
+
+/* ---------- page: blogs ---------- */
+const CATS=["All Articles","Women's Fashion","Men's Fashion","Kids' Style","Styling Tips","Fashion Trends","Wardrobe Essentials"];
+const metaLine=a=>`<div class="meta"><span>${a.date}</span><span>·</span><span>${a.min} min read</span></div>`;
+function initBlogs(){
+ const F=ARTICLES.find(a=>a.featured)||null,L=ARTICLES.filter(a=>a!==F);
+ if(!F){$("feat").closest("section").style.display="none"}else $("feat").innerHTML=`<div class="ph zoom" role="img" aria-label="${esc(F.alt)}" style="--tone:${F.tone}${F.image?`;--img:url('${F.image}')`:""}"></div><div class="txt"><p class="kick">${F.kicker}</p><h2>${F.title}</h2><p class="d">${F.excerpt}</p><div class="meta"><span>Glamora Editorial Team</span><span>·</span><span>${F.min} min read</span></div><a class="btn" href="#/blogs/${F.slug}">Read the Story</a></div>`;
+ let cat=CATS[0],q="";
+ $("cats").innerHTML=CATS.map(c=>`<button aria-pressed="${c===cat}">${c}</button>`).join("");
+ function draw(){
+  const t=q.trim().toLowerCase();
+  const list=L.filter(a=>(cat===CATS[0]||a.cat===cat)&&(!t||(a.title+" "+a.excerpt+" "+a.cat).toLowerCase().includes(t)));
+  $("bgrid").innerHTML=list.length?list.map((a,i)=>`<a class="bc pop" style="animation-delay:${i*.06}s" href="#/blogs/${a.slug}"><div class="bimg"><div class="ph zoom" role="img" aria-label="${esc(a.alt)}" style="--tone:${a.tone}${a.image?`;--img:url('${a.image}')`:""}"></div></div><div class="kick" style="margin-bottom:8px">${a.cat}</div><h3>${a.title}</h3><p>${a.excerpt}</p>${metaLine(a)}<span class="link">Read Article <span>→</span></span></a>`).join(""):`<div class="empty"><h3 style="font-size:26px;margin-bottom:8px">No articles found</h3><p>Try a different word or choose another category.</p><button class="btn ghost" id="rs">Show all articles</button></div>`;
+  const r=$("rs");if(r)r.onclick=reset;
+ }
+ function reset(){cat=CATS[0];q="";$("sq").value="";$("sx").hidden=true;qa("#cats button").forEach(b=>b.setAttribute("aria-pressed",b.textContent===cat));draw()}
+ $("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.textContent;qa("#cats button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()});
+ $("sq").addEventListener("input",e=>{q=e.target.value;$("sx").hidden=!q;draw()});
+ $("sx").addEventListener("click",()=>{q="";$("sq").value="";$("sx").hidden=true;$("sq").focus();draw()});
+ draw();initNews();
+}
+
+/* ---------- article page ---------- */
+function articleHTML(a){
+ const rel=[...ARTICLES.filter(x=>x!==a&&x.cat===a.cat),...ARTICLES.filter(x=>x!==a&&x.cat!==a.cat)].slice(0,3);
+ const secs=a.blocks?blocksHTML(a):a.body.map((s,i)=>`<h2>${s[0]}</h2><p>${s[1]}</p>${i===0?`<figure><div class="ph" role="img" aria-label="${esc(a.alt)}" style="--tone:linear-gradient(160deg,#d6c8b1,#9a846a)"></div><figcaption>${esc(a.alt)}</figcaption></figure>`:""}`).join("");
+ return `<article><header class="ah"><a class="back" href="#/blogs">← Back to the Journal</a><p class="kick">${a.kicker||a.cat}</p><h1>${a.title}</h1><div class="meta"><span>Glamora Editorial Team</span><span>·</span><span>${a.date}</span><span>·</span><span>${a.min} min read</span></div></header>
+ <div class="ahero"><div class="ph" role="img" aria-label="${esc(a.alt)}" style="--tone:${a.tone}${a.image?`;--img:url('${a.image}')`:""}"></div></div>
+ <div class="prose"><p class="lead">${a.intro}</p>${secs}<p>Ready to put these ideas into practice? Browse the <a href="#/collections" style="border-bottom:1px solid var(--gold)">Glamora collections</a> for pieces to build from.</p></div>
+ <div class="share"><span>Share</span><button id="cp">Copy link</button><a target="_blank" rel="noopener noreferrer" id="sf">Facebook</a><a target="_blank" rel="noopener noreferrer" id="sx2">X</a><a target="_blank" rel="noopener noreferrer" id="sw">WhatsApp</a></div></article>
+ <section><div class="wrap"><div class="sec-head" style="margin-top:80px;margin-bottom:0"><h2>Related Articles</h2></div><div class="bgrid">${rel.map(r=>`<a class="bc" href="#/blogs/${r.slug}"><div class="bimg"><div class="ph zoom" role="img" aria-label="${esc(r.alt)}" style="--tone:${r.tone}${r.image?`;--img:url('${r.image}')`:""}"></div></div><div class="kick" style="margin-bottom:8px">${r.cat}</div><h3>${r.title}</h3><span class="link">Read Article <span>→</span></span></a>`).join("")}</div>
+ <div style="text-align:center;margin-top:70px"><a class="btn" href="#/collections">Explore Collections</a></div></div></section><div style="height:100px"></div>`;
+}
+function initArticle(){
+ const u=encodeURIComponent(location.href),t=encodeURIComponent(document.title);
+ $("sf").href="https://www.facebook.com/sharer/sharer.php?u="+u;$("sx2").href=`https://twitter.com/intent/tweet?url=${u}&text=${t}`;$("sw").href=`https://wa.me/?text=${t}%20${u}`;
+ $("cp").onclick=()=>navigator.clipboard?navigator.clipboard.writeText(location.href).then(()=>say("Link copied"),()=>say("Copy the link from your address bar")):say("Copy the link from your address bar");
+}
+
+
+/* ---------- live content from the Glamora server ---------- */
+let DATA=null;
+const dec=s=>{const t=document.createElement("textarea");t.innerHTML=s;return t.value};
+async function loadContent(){try{const r=await fetch("/api/public/content",{cache:"no-store"});if(r.ok){DATA=await r.json();if(DATA.posts)ARTICLES=DATA.posts.map(adaptPost)}}catch(_){}}
+const lnk=h=>/^https?:\/\//.test(h)?h:(h&&h[0]==="/")?"#"+h:h;
+function rich(t){return esc(t).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]*|#\/[^\s)]*|mailto:[^\s)]+)\)/g,(m,t,u)=>`<a href="${u[0]==="/"?"#"+u:u}" rel="noopener noreferrer">${t}</a>`)}
+function blocksHTML(a){return a.blocks.map(b=>b.type==="h"?`<h2>${rich(b.text)}</h2>`:b.type==="p"?`<p>${rich(b.text)}</p>`:b.type==="ul"?`<ul>${(b.items||[]).map(i=>`<li>${rich(i)}</li>`).join("")}</ul>`:b.src?`<figure><div class="ph" role="img" aria-label="${esc(b.alt||"")}" style="--tone:#d6c8b1;--img:url('${b.src}')"></div>${b.alt?`<figcaption>${esc(b.alt)}</figcaption>`:""}</figure>`:"").join("")}
+function adaptP(p){const sale=p.sale_price&&p.sale_price<p.price;return{id:p.id,slug:p.slug,cat:p.collection,name:esc(p.name),price:sale?p.sale_price:p.price,was:sale?p.price:null,colors:p.colors||[],image:p.image||"",pos:p.focus==null?20:p.focus,alt:p.name,tone:"linear-gradient(160deg,#ddd2bf,#b9a98d)",icon:p.collection==="men"?"top":"dress"}}
+function adaptC(c){const T={men:"linear-gradient(170deg,#6b6155,#2f2a25)",women:"linear-gradient(170deg,#c9b392,#8a7258)",children:"linear-gradient(170deg,#b8a58a,#6f5f4b)"};return{id:c.slug,title:esc(c.name),desc:esc(c.description||""),cta:"Shop "+esc(c.name),href:"#/collections/"+c.slug,tone:T[c.slug]||T.women,image:c.thumbnail||"",alt:c.name}}
+function adaptPost(p){const bl=p.body||[],fi=bl.findIndex(b=>b.type==="p"),words=bl.map(b=>b.text||(b.items||[]).join(" ")).join(" ").split(/\s+/).filter(Boolean).length;return{slug:p.slug,featured:!!p.featured,kicker:p.category,title:esc(p.title),excerpt:esc(p.excerpt||""),cat:p.category,min:Math.max(1,Math.round(words/200)),date:new Date(p.published_at).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}),tone:"linear-gradient(160deg,#d3c3a8,#8e785c)",image:p.image||"",alt:p.title,intro:fi>=0?rich(bl[fi].text):"",blocks:bl.filter((_,i)=>i!==fi),body:[]}}
+const homeProducts=()=>DATA?DATA.featured.map(adaptP):null;
+const shopList=s=>DATA?DATA.products.filter(p=>p.collection===s).map(adaptP):null;
+function pick(P,cat){if(cat!=="all")return P.filter(p=>p.cat===cat).slice(0,6);const n={};return P.filter(p=>(n[p.cat]=(n[p.cat]||0)+1)<=2)}
+function heroFor(slug){const c=DATA&&DATA.collections.find(x=>x.slug===slug);if(!c)return;const ph=document.querySelector(".wimg .ph");if(ph&&c.banner)ph.style.setProperty("--img","url('"+c.banner+"')")}
+function applyGlobal(){
+ if(!DATA)return;const S=DATA.settings,A=DATA.about;
+ CONFIG.formEndpoint="/api/contact";CONFIG.phoneDisplay=S.phone_display;CONFIG.phoneTel=S.phone_tel;CONFIG.email=S.email;
+ CONFIG.social={instagram:S.instagram,facebook:S.facebook,pinterest:S.pinterest,tiktok:S.tiktok};
+ const st=document.documentElement.style;if(S.color_accent)st.setProperty("--gold",S.color_accent);if(S.color_primary)st.setProperty("--ink",S.color_primary);if(S.color_secondary)st.setProperty("--beige",S.color_secondary);
+ const bar=document.querySelector("div.bar");if(bar){if(S.announcement_visible&&S.announcement_text)bar.textContent=S.announcement_text;else bar.style.display="none"}
+ const fp=document.querySelector("footer .fgrid p");if(fp&&S.footer_text)fp.textContent=S.footer_text;const cp=document.querySelector("footer .copy");if(cp&&S.copyright)cp.textContent=S.copyright;
+ if(S.favicon){let l=document.querySelector("link[rel=icon]");if(!l){l=document.createElement("link");l.rel="icon";document.head.appendChild(l)}l.href=S.favicon}
+ if(S.logo)document.querySelectorAll(".logo").forEach(a=>{const i=document.createElement("img");i.src=S.logo;i.alt=S.site_name;i.style.cssText="height:34px;display:block";a.replaceChildren(i)});
+ if(S.default_seo_title)META.home=[S.default_seo_title,S.default_seo_desc||META.home[1]];
+ if(A&&A.seo_title)META.about=[A.seo_title,A.seo_desc||META.about[1]];
+}
+function applyHome(){
+ const H=DATA&&DATA.homepage;if(!H)return;const hero=document.querySelector(".hero");
+ if(!H.hero_enabled)hero.style.display="none";else{
+  const set=(sel,t)=>{const e=hero.querySelector(sel);if(e&&t)e.textContent=t};
+  set(".eyebrow",H.hero_eyebrow);set("h1",H.hero_heading);set(".sub",H.hero_text);
+  const a=hero.querySelectorAll(".cta a");if(a[0]){a[0].textContent=H.hero_primary_label;a[0].href=lnk(H.hero_primary_link)}if(a[1]){a[1].textContent=H.hero_secondary_label;a[1].href=lnk(H.hero_secondary_link)}
+  if(H.hero_image)hero.querySelector(".ph").style.setProperty("--img","url('"+H.hero_image+"')");
+  hero.style.setProperty("--ov",(H.hero_overlay/100).toFixed(2));if(H.hero_align==="center")hero.classList.add("center");
+ }
+ document.querySelectorAll(".ccard").forEach(card=>{const slug=(card.getAttribute("href")||"").split("/").pop(),c=DATA.collections.find(x=>x.slug===slug);if(!c)return;if(c.thumbnail)card.querySelector(".ph").style.setProperty("--img","url('"+c.thumbnail+"')");const h3=card.querySelector("h3"),p=card.querySelector("p");if(h3)h3.textContent=c.name;if(p&&c.description)p.textContent=c.description});
+ const hide=(el,on)=>{if(el&&!on)el.style.display="none"};
+ hide($("collections"),H.sec_collections);hide(document.querySelector(".products"),H.sec_featured);hide(document.querySelector(".story"),H.sec_story);const vg=document.querySelector(".vgrid");hide(vg&&vg.closest("section"),H.sec_values);hide(document.querySelector(".news"),H.sec_newsletter);
+ const set2=(sel,t)=>{const e=document.querySelector(sel);if(e&&t)e.textContent=t};
+ set2(".story h2",H.story_heading);set2(".story .d",H.story_text);set2(".story .btn",H.story_button);set2(".news h2",H.newsletter_heading);set2(".news p",H.newsletter_text);
+ if(H.story_image)document.querySelector(".story .ph").style.setProperty("--img","url('"+H.story_image+"')");
+}
+function applyAbout(){
+ const A=DATA&&DATA.about;if(!A)return;const hero=document.querySelector(".hero");
+ if(A.hero_image)hero.querySelector(".ph").style.setProperty("--img","url('"+A.hero_image+"')");
+ const set=(sel,t)=>{const e=document.querySelector(sel);if(e&&t)e.textContent=t};
+ set(".hero h1",A.hero_heading);set(".hero .sub",A.hero_text);set(".story h2",A.story_heading);
+ const paras=(A.story_text||"").split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);document.querySelectorAll(".story .d").forEach((e,i)=>{if(paras[i])e.textContent=paras[i];else e.style.display="none"});
+ set(".endcta h2",A.cta_heading);set(".endcta .d",A.cta_text);
+}
+
+/* ---------- router ---------- */
+const T={home:"\n<section class=\"hero\" style=\"padding:0\">\n  <div class=\"ph\" role=\"img\" aria-label=\"Glamora season campaign image\"><\/div>\n  <div class=\"wrap\">\n    <p class=\"eyebrow\">The New Season Edit<\/p>\n    <h1>Style That Speaks. Elegance That Lasts.<\/h1>\n    <p class=\"sub\">Discover timeless essentials and contemporary fashion designed to make every moment your own.<\/p>\n    <div class=\"cta\"><a class=\"btn light\" href=\"#collections\" style=\"background:var(--white);color:var(--ink)\">Explore Collection<\/a><a class=\"btn light\" href=\"#/about\">Discover Glamora<\/a><\/div>\n  <\/div>\n<\/section>\n\n<section id=\"collections\">\n<div class=\"wrap\">\n  <div class=\"head rv\"><h2>Explore Our Collections<\/h2><p>Thoughtfully selected styles for every wardrobe.<\/p><\/div>\n  <div class=\"cgrid\">\n    <a class=\"ccard rv\" href=\"#/collections/men\"><div class=\"ph zoom\" style=\"--tone:linear-gradient(170deg,#6b6155,#2f2a25)\" id=\"img-men\"><\/div><div class=\"t\"><h3>Men<\/h3><p>Modern essentials. Timeless confidence.<\/p><span class=\"link\">Shop Men <span>\u2192<\/span><\/span><\/div><\/a>\n    <a class=\"ccard rv\" href=\"#/collections/women\" style=\"transition-delay:.12s\"><div class=\"ph zoom\" style=\"--tone:linear-gradient(170deg,#c9b392,#8a7258)\"><\/div><div class=\"t\"><h3>Women<\/h3><p>Effortless elegance for every occasion.<\/p><span class=\"link\">Shop Women <span>\u2192<\/span><\/span><\/div><\/a>\n    <a class=\"ccard rv\" href=\"#/collections/children\" style=\"transition-delay:.24s\"><div class=\"ph zoom\" style=\"--tone:linear-gradient(170deg,#b8a58a,#6f5f4b)\"><\/div><div class=\"t\"><h3>Children<\/h3><p>Comfort, color, and everyday charm.<\/p><span class=\"link\">Shop Children <span>\u2192<\/span><\/span><\/div><\/a>\n  <\/div>\n<\/div>\n<\/section>\n\n<section class=\"products\">\n<div class=\"wrap\">\n  <div class=\"head rv\"><h2>Selected for You<\/h2><p>Discover the pieces defining the season.<\/p><\/div>\n  <div class=\"pgrid\" id=\"pgrid\"><\/div>\n<\/div>\n<\/section>\n\n<section class=\"story\">\n  <div class=\"ph rv\" role=\"img\" aria-label=\"Fabric detail\"><\/div>\n  <div class=\"txt rv\">\n    <p class=\"eyebrow\">The Glamora Philosophy<\/p>\n    <h2>Fashion Beyond Trends.<\/h2>\n    <p class=\"d\">At Glamora, style is about more than what you wear. It is about confidence, individuality, and the details that make every look your own.<\/p>\n    <a class=\"btn\" href=\"#/about\">Our Story<\/a>\n  <\/div>\n<\/section>\n\n<section>\n<div class=\"wrap vgrid\">\n  <div class=\"v rv\"><svg viewBox=\"0 0 32 32\"><path d=\"M6 12l10-6 10 6-4 3v11H10V15l-4-3z\"/><\/svg><h3>Curated Style<\/h3><p>Discover versatile styles selected for modern wardrobes.<\/p><\/div>\n  <div class=\"v rv\" style=\"transition-delay:.12s\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"10\"/><path d=\"M11 16l4 4 6-8\"/><\/svg><h3>Quality First<\/h3><p>Find thoughtfully designed pieces for everyday wear and special moments.<\/p><\/div>\n  <div class=\"v rv\" style=\"transition-delay:.24s\"><svg viewBox=\"0 0 32 32\"><path d=\"M16 27s-10-6-10-13a6 6 0 0110-4 6 6 0 0110 4c0 7-10 13-10 13z\"/><\/svg><h3>A Seamless Experience<\/h3><p>Enjoy a simple, convenient, and customer-focused shopping experience.<\/p><\/div>\n<\/div>\n<\/section>\n\n<section class=\"news\">\n<div class=\"wrap rv\">\n  <h2>Stay in Style<\/h2>\n  <p>Get updates on new collections, fresh arrivals, and fashion inspiration.<\/p>\n  <form id=\"nf\" novalidate>\n    <label for=\"em\" style=\"position:absolute;left:-9999px\">Email address<\/label>\n    <input id=\"em\" type=\"email\" placeholder=\"Your email address\" autocomplete=\"email\" aria-describedby=\"nm\">\n    <button class=\"btn\" type=\"submit\">Subscribe<\/button>\n  <\/form>\n  <div class=\"msg\" id=\"nm\" role=\"status\" aria-live=\"polite\"><\/div>\n<\/div>\n<\/section>\n",collections:"\n<section class=\"hero ch\" style=\"padding:0\">\n  <div class=\"ph\" data-img=\"hero\" role=\"img\" aria-label=\"A man, a woman and a girl in coordinated cream and linen outfits seated among sunlit stone columns\"><\/div>\n  <div class=\"wrap\">\n    <p class=\"eyebrow\">Explore Our<\/p>\n    <h1>Collections<\/h1>\n    <p class=\"sub\">Discover timeless fashion for Men, Women and Children. Styles for every moment and every generation.<\/p>\n  <\/div>\n<\/section>\n\n<div class=\"tabs\"><div class=\"wrap\" role=\"tablist\" aria-label=\"Collections\">\n  <button class=\"tab\" role=\"tab\" data-c=\"all\" aria-selected=\"true\">All Collections<\/button>\n  <button class=\"tab\" role=\"tab\" data-c=\"men\" aria-selected=\"false\">Men<\/button>\n  <button class=\"tab\" role=\"tab\" data-c=\"women\" aria-selected=\"false\">Women<\/button>\n  <button class=\"tab\" role=\"tab\" data-c=\"children\" aria-selected=\"false\">Children<\/button>\n<\/div><\/div>\n\n<section style=\"padding:80px 0 100px\"><div class=\"wrap\">\n  <div class=\"cgrid\" id=\"cgrid\" role=\"tabpanel\" aria-live=\"polite\"><\/div>\n<\/div><\/section>\n\n<section class=\"products\"><div class=\"wrap\">\n  <div class=\"head rv\"><h2>Featured in Collections<\/h2><p>Explore a curated selection from our Men, Women and Children collections.<\/p><\/div>\n  <div class=\"fl\" id=\"fl\" role=\"group\" aria-label=\"Filter products\"><\/div>\n  <div class=\"pgrid\" id=\"pgrid\" aria-live=\"polite\"><\/div>\n<\/div><\/section>\n",about:"\n<section class=\"hero ab\" style=\"padding:0\">\n  <div class=\"ph\" data-img=\"hero\" role=\"img\" aria-label=\"A man, a woman and a child in coordinated neutral outfits in a warm architectural space\"><\/div>\n  <div class=\"wrap\">\n    <p class=\"eyebrow\">Our Story<\/p>\n    <h1>More Than Fashion. A Way of Life.<\/h1>\n    <p class=\"sub\">At Glamora, we believe that what you wear is an expression of who you are. We bring together contemporary style, timeless inspiration, and everyday versatility to help every generation find its own sense of fashion.<\/p>\n    <div class=\"cta\"><a class=\"btn\" href=\"#/collections\" style=\"background:var(--white);color:var(--ink)\">Explore Our Collections<\/a><\/div>\n  <\/div>\n<\/section>\n\n<section class=\"story ab2\">\n  <div class=\"ph rv\" data-img=\"story\" role=\"img\" aria-label=\"Folded fabrics and garment details on a styling table\"><\/div>\n  <div class=\"txt rv\">\n    <p class=\"eyebrow\">The Glamora Story<\/p>\n    <h2>Style That Brings Us Together.<\/h2>\n    <p class=\"d\">Glamora was created around a simple idea: fashion should feel personal, inspiring, and effortless. The right outfit can change how you feel, how you express yourself, and how you experience the everyday.<\/p>\n    <p class=\"d\">Our collections bring together styles for men, women, and children, making it easier to discover pieces that complement different personalities, occasions, and lifestyles.<\/p>\n    <p class=\"d\">We continue to explore contemporary trends and timeless essentials with a focus on creating an enjoyable fashion experience for every customer.<\/p>\n  <\/div>\n<\/section>\n\n<section><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>Fashion With a Point of View<\/h2><p>Our approach is rooted in individuality, thoughtful design, and the freedom to express your style.<\/p><\/div>\n  <div class=\"phil\">\n    <article class=\"pc rv\"><div class=\"box\"><div class=\"ph zoom\" data-img=\"p1\" role=\"img\" aria-label=\"Person in a contemporary outfit in a minimalist room\" style=\"--tone:linear-gradient(170deg,#9b8a76,#51463a)\"><\/div><\/div><h3>Express Yourself<\/h3><p>Discover styles that help you express your personality and create looks that feel uniquely yours.<\/p><\/article>\n    <article class=\"pc rv\" style=\"transition-delay:.12s\"><div class=\"box\"><div class=\"ph zoom\" data-img=\"p2\" role=\"img\" aria-label=\"Refined neutral-toned outfit styled like a fashion editorial\" style=\"--tone:linear-gradient(170deg,#d6c8b1,#9c876b)\"><\/div><\/div><h3>Beyond Trends<\/h3><p>Explore a balance of modern inspiration and versatile wardrobe essentials that work across occasions.<\/p><\/article>\n    <article class=\"pc rv\" style=\"transition-delay:.24s\"><div class=\"box\"><div class=\"ph zoom\" data-img=\"p3\" role=\"img\" aria-label=\"A family in coordinated outfits with natural expressions\" style=\"--tone:linear-gradient(170deg,#bfae94,#76644f)\"><\/div><\/div><h3>Style for Everyone<\/h3><p>Explore fashion for men, women, and children, bringing different styles together under one brand.<\/p><\/article>\n  <\/div>\n<\/div><\/section>\n\n<section style=\"background:var(--beige)\"><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>Designed for Every Wardrobe<\/h2><p>Three collections, one point of view.<\/p><\/div>\n  <div class=\"cgrid\">\n    <a class=\"ccard rv\" href=\"#/collections/men\"><div class=\"ph zoom\" data-img=\"men\" role=\"img\" aria-label=\"Contemporary menswear\" style=\"--tone:linear-gradient(170deg,#6b6155,#2f2a25)\"><\/div><div class=\"t\"><h3>Modern Confidence<\/h3><p>Explore everyday essentials and contemporary styles designed for the modern wardrobe.<\/p><span class=\"link\">Explore Men <span>\u2192<\/span><\/span><\/div><\/a>\n    <a class=\"ccard rv\" href=\"#/collections/women\" style=\"transition-delay:.12s\"><div class=\"ph zoom\" data-img=\"women\" role=\"img\" aria-label=\"Elegant women's fashion\" style=\"--tone:linear-gradient(170deg,#c9b392,#8a7258)\"><\/div><div class=\"t\"><h3>Effortless Elegance<\/h3><p>Discover versatile styles for everyday moments, special occasions, and everything in between.<\/p><span class=\"link\">Explore Women <span>\u2192<\/span><\/span><\/div><\/a>\n    <a class=\"ccard rv\" href=\"#/collections/children\" style=\"transition-delay:.24s\"><div class=\"ph zoom\" data-img=\"children\" role=\"img\" aria-label=\"Children's fashion\" style=\"--tone:linear-gradient(170deg,#b8a58a,#6f5f4b)\"><\/div><div class=\"t\"><h3>Little Moments, Big Style<\/h3><p>Explore comfortable, cheerful styles designed for the many moments of childhood.<\/p><span class=\"link\">Explore Children <span>\u2192<\/span><\/span><\/div><\/a>\n  <\/div>\n<\/div><\/section>\n\n<section class=\"vals\"><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>What Glamora Stands For<\/h2><\/div>\n  <div class=\"vgrid vg4\">\n    <div class=\"v rv\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"11\" r=\"5\"/><path d=\"M6 27c1-6 5-9 10-9s9 3 10 9\"/><\/svg><h3>Personal Expression<\/h3><p>Fashion that helps people express their own identity and preferences.<\/p><\/div>\n    <div class=\"v rv\" style=\"transition-delay:.1s\"><svg viewBox=\"0 0 32 32\"><path d=\"M6 12l10-6 10 6-4 3v11H10V15l-4-3z\"/><\/svg><h3>Thoughtful Style<\/h3><p>A considered mix of contemporary inspiration and versatile wardrobe choices.<\/p><\/div>\n    <div class=\"v rv\" style=\"transition-delay:.2s\"><svg viewBox=\"0 0 32 32\"><path d=\"M5 16h22M20 9l7 7-7 7\"/><\/svg><h3>Everyday Versatility<\/h3><p>Styles for different occasions, routines, and personal tastes.<\/p><\/div>\n    <div class=\"v rv\" style=\"transition-delay:.3s\"><svg viewBox=\"0 0 32 32\"><path d=\"M16 27s-10-6-10-13a6 6 0 0110-4 6 6 0 0110 4c0 7-10 13-10 13z\"/><\/svg><h3>Customer Experience<\/h3><p>An approachable and convenient way to explore fashion and discover new favorites.<\/p><\/div>\n  <\/div>\n<\/div><\/section>\n\n<section><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>The Glamora Look<\/h2><p>A few moments from the world of Glamora.<\/p><\/div>\n  <div class=\"gal\">\n    <figure class=\"g g1 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g1\" role=\"img\" aria-label=\"Contemporary menswear on a model in warm light\" style=\"--tone:linear-gradient(170deg,#7a6c5c,#383029)\"><\/div><\/figure>\n    <figure class=\"g g2 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g2\" role=\"img\" aria-label=\"Elegant women's outfit in neutral tones\" style=\"--tone:linear-gradient(170deg,#d2c0a4,#9a846a)\"><\/div><\/figure>\n    <figure class=\"g g3 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g3\" role=\"img\" aria-label=\"Close-up of fabric texture and stitching\" style=\"--tone:linear-gradient(170deg,#c3b399,#7d6b55)\"><\/div><\/figure>\n    <figure class=\"g g4 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g4\" role=\"img\" aria-label=\"Children's clothing styled for everyday wear\" style=\"--tone:linear-gradient(170deg,#b9a68c,#6e5e4b)\"><\/div><\/figure>\n    <figure class=\"g g5 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g5\" role=\"img\" aria-label=\"Family in coordinated outfits outdoors\" style=\"--tone:linear-gradient(170deg,#a9977d,#5f5141)\"><\/div><\/figure>\n    <figure class=\"g g6 rv\" style=\"margin:0\"><div class=\"ph zoom\" data-img=\"g6\" role=\"img\" aria-label=\"Lifestyle fashion photograph in a bright interior\" style=\"--tone:linear-gradient(170deg,#d9ccb7,#a8957b)\"><\/div><\/figure>\n  <\/div>\n<\/div><\/section>\n\n<section class=\"endcta\">\n  <div class=\"txt rv\">\n    <p class=\"eyebrow\">Your Style Journey Starts Here<\/p>\n    <h2>Find Your Kind of Glamora.<\/h2>\n    <p class=\"d\">Explore the collections and discover styles that feel like you.<\/p>\n    <div class=\"cta\"><a class=\"btn\" href=\"#/collections\">Shop the Collections<\/a><a class=\"link\" href=\"#/contact\">Get in Touch <span>\u2192<\/span><\/a><\/div>\n  <\/div>\n  <div class=\"ph rv\" data-img=\"cta\" role=\"img\" aria-label=\"Styled outfit in a warm interior\"><\/div>\n<\/section>\n",contact:"\n<section class=\"hero ct2\" style=\"padding:0\"><div class=\"ph scene\" data-img=\"hero\" role=\"img\" aria-label=\"Model in a beige blazer and wide cream trousers standing in a sunlit architectural interior\"><svg viewBox=\"0 0 1600 720\" preserveAspectRatio=\"xMaxYMid slice\" aria-hidden=\"true\"><defs><linearGradient id=\"scw\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#eadfce\"/><stop offset=\"1\" stop-color=\"#d6c3a9\"/><\/linearGradient><linearGradient id=\"scf\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#e8dbc6\"/><stop offset=\"1\" stop-color=\"#f7f0e4\"/><\/linearGradient><linearGradient id=\"scg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\".95\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\".15\"/><\/linearGradient><\/defs>\n<rect width=\"1600\" height=\"720\" fill=\"url(#scw)\"/><rect x=\"760\" y=\"70\" width=\"300\" height=\"480\" fill=\"#e4d5c0\"/><rect x=\"1060\" y=\"130\" width=\"540\" height=\"420\" fill=\"#cdb99f\"/>\n<g fill=\"#f8f2e8\"><rect x=\"30\" y=\"40\" width=\"130\" height=\"510\"/><rect x=\"215\" y=\"40\" width=\"130\" height=\"510\"/><rect x=\"400\" y=\"40\" width=\"130\" height=\"510\"/><rect x=\"585\" y=\"40\" width=\"130\" height=\"510\"/><\/g>\n<g fill=\"#c8b59b\"><rect x=\"160\" y=\"0\" width=\"55\" height=\"570\"/><rect x=\"345\" y=\"0\" width=\"55\" height=\"570\"/><rect x=\"530\" y=\"0\" width=\"55\" height=\"570\"/><rect x=\"715\" y=\"0\" width=\"45\" height=\"570\"/><\/g>\n<rect y=\"540\" width=\"1600\" height=\"180\" fill=\"url(#scf)\"/>\n<g fill=\"url(#scg)\" opacity=\".75\"><polygon points=\"110,560 300,560 540,720 190,720\"/><polygon points=\"420,560 610,560 900,720 570,720\"/><polygon points=\"740,560 900,560 1230,720 900,720\"/><\/g>\n<ellipse cx=\"1190\" cy=\"640\" rx=\"130\" ry=\"14\" fill=\"#7d6648\" opacity=\".25\"/>\n<path d=\"M1148 410h86l50 230H1098z\" fill=\"#f2e9d9\"/><path d=\"M1190 410v230\" stroke=\"#d9cbb4\" stroke-width=\"2\"/>\n<path d=\"M1158 252h64l26 52-6 118h-104l-6-118z\" fill=\"#d9c1a0\"/><path d=\"M1190 252v170M1190 270l-22 46M1190 270l22 46\" stroke=\"#bda57f\" stroke-width=\"2\" fill=\"none\"/>\n<path d=\"M1146 262l-24 140 16 4 20-110z\" fill=\"#d3b992\"/><path d=\"M1234 262l24 140-16 4-20-110z\" fill=\"#d3b992\"/>\n<rect x=\"1181\" y=\"232\" width=\"18\" height=\"24\" fill=\"#e2c3a5\"/><circle cx=\"1190\" cy=\"212\" r=\"25\" fill=\"#d8b580\"/><ellipse cx=\"1190\" cy=\"218\" rx=\"19\" ry=\"22\" fill=\"#e6c9ad\"/><\/svg><\/div><div class=\"wrap\"><p class=\"eyebrow\">We're Here for You<\/p><h1>Let's Talk Style.<\/h1><p class=\"sub\">Have a question, need help with an order, or want to know more about Glamora? We'd love to hear from you.<\/p><div class=\"cta\"><a class=\"btn\" href=\"#form\" data-go>Contact Our Team<\/a><\/div><\/div><\/section>\n\n<section><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>We'd Love to Hear From You<\/h2><p>Whether you're exploring our collections or need assistance with an order, our team is here to help.<\/p><\/div>\n  <div class=\"icards\">\n    <article class=\"ic rv\"><svg class=\"i\" viewBox=\"0 0 32 32\"><rect x=\"4\" y=\"7\" width=\"24\" height=\"18\" rx=\"1\"/><path d=\"M4 8l12 9 12-9\"/><\/svg><h3>Email Us<\/h3><p>Send us your questions and inquiries.<\/p><a class=\"big\" data-email href=\"#\"><\/a><\/article>\n    <article class=\"ic rv\" style=\"transition-delay:.12s\"><svg class=\"i\" viewBox=\"0 0 32 32\"><path d=\"M8 4h5l2 7-3 2c1.5 3 3.5 5 6 6.500l2-3 7 2v5c0 1-1 2-2 2C14 25 7 18 6 6c0-1 1-2 2-2z\"/><\/svg><h3>Call Us<\/h3><p>Get in touch with Glamora for assistance.<\/p><a class=\"big\" data-phone href=\"#\"><\/a><\/article>\n    <article class=\"ic rv\" style=\"transition-delay:.24s\"><svg class=\"i\" viewBox=\"0 0 32 32\"><path d=\"M5 16a11 11 0 1121 5l1 6-6-1.500A11 11 0 015 16z\"/><\/svg><h3>Need Assistance?<\/h3><p>Have a question about our collections, products, or an existing order? Send us a message using our contact form.<\/p><a class=\"btn\" href=\"#form\" data-go>Send Us a Message<\/a><\/article>\n  <\/div>\n<\/div><\/section>\n\n<section id=\"form\" class=\"cfs\"><i class=\"blob b1\"><\/i><i class=\"blob b2\"><\/i><div class=\"wrap\">\n<div class=\"cfh rv\"><h2>Send us a <em>message.<\/em><\/h2><p>Tell us how we can help, and share a few details so we can understand your inquiry.<\/p><\/div>\n<div class=\"cfcard rv\"><form id=\"cf\" novalidate><div class=\"f2\">\n<div class=\"fld\"><label for=\"n\">Full name<\/label><input id=\"n\" name=\"name\" autocomplete=\"name\" placeholder=\"Jane Smith\" required aria-describedby=\"n-e\"><span class=\"err\" id=\"n-e\"><\/span><\/div>\n<div class=\"fld\"><label for=\"e\">Email address<\/label><input id=\"e\" name=\"email\" type=\"email\" autocomplete=\"email\" placeholder=\"jane@example.com\" required aria-describedby=\"e-e\"><span class=\"err\" id=\"e-e\"><\/span><\/div>\n<div class=\"fld\"><label for=\"p\">Phone number <small>(optional)<\/small><\/label><input id=\"p\" name=\"phone\" type=\"tel\" autocomplete=\"tel\" placeholder=\"+92 300 0000000\" aria-describedby=\"p-e\"><span class=\"err\" id=\"p-e\"><\/span><\/div>\n<div class=\"fld\"><label for=\"s\">Subject<\/label><select id=\"s\" name=\"subject\"><option>General Inquiry<\/option><option>Product Information<\/option><option>Order Status<\/option><option>Shipping and Delivery<\/option><option>Returns and Exchanges<\/option><option>Sizing Assistance<\/option><option>Collaboration<\/option><option>Other<\/option><\/select><\/div>\n<div class=\"fld full\" id=\"ow\" hidden><label for=\"o\">Order number <small>(optional)<\/small><\/label><input id=\"o\" name=\"order\" maxlength=\"40\" placeholder=\"Your order number\"><\/div>\n<div class=\"fld full\"><label for=\"m\">Message<\/label><textarea id=\"m\" name=\"message\" required maxlength=\"3000\" placeholder=\"Tell us about your inquiry\" aria-describedby=\"m-e\"><\/textarea><span class=\"err\" id=\"m-e\"><\/span><\/div>\n<div class=\"hp\" aria-hidden=\"true\"><label>Leave empty<input name=\"website\" tabindex=\"-1\" autocomplete=\"off\"><\/label><\/div>\n<div class=\"fld full\"><label class=\"chk\" for=\"pv\"><input id=\"pv\" name=\"privacy\" type=\"checkbox\" aria-describedby=\"pv-e\"><span>I have read the Privacy Policy and agree that Glamora may use these details to reply to my inquiry.<\/span><\/label><span class=\"err\" id=\"pv-e\"><\/span><\/div>\n<div class=\"fld full\"><button class=\"btn\" id=\"sub\" type=\"submit\">Send Message<\/button><\/div><\/div>\n<div id=\"fm\" role=\"status\" aria-live=\"polite\"><\/div><\/form><\/div>\n<p class=\"cfn rv\">We're glad you reached out. Share your question and our team will get back to you.<\/p><\/div><\/section>\n\n<section><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>How Can We Help?<\/h2><\/div>\n  <div class=\"tg\">\n    <button class=\"tp rv\" data-sub=\"Product Information\"><h3>Product Questions<\/h3><p>Need help choosing a product, understanding available colors, or finding the right size?<\/p><span class=\"link\">Ask About a Product <span>\u2192<\/span><\/span><\/button>\n    <button class=\"tp rv\" style=\"transition-delay:.1s\" data-sub=\"Order Status\"><h3>Orders and Delivery<\/h3><p>Have questions about an existing order or delivery arrangements?<\/p><span class=\"link\">Order Inquiry <span>\u2192<\/span><\/span><\/button>\n    <button class=\"tp rv\" style=\"transition-delay:.2s\" data-sub=\"Returns and Exchanges\"><h3>Returns and Exchanges<\/h3><p>Need assistance understanding the return or exchange process?<\/p><span class=\"link\">Returns Support <span>\u2192<\/span><\/span><\/button>\n    <button class=\"tp rv\" style=\"transition-delay:.3s\" data-sub=\"General Inquiry\"><h3>General Questions<\/h3><p>Have a question about Glamora, our collections, or something else?<\/p><span class=\"link\">General Inquiry <span>\u2192<\/span><\/span><\/button>\n  <\/div>\n<\/div><\/section>\n\n<section class=\"vals\"><div class=\"wrap\">\n  <div class=\"sec-head rv\"><h2>Frequently Asked Questions<\/h2><p>Quick answers to some common questions.<\/p><\/div>\n  <div class=\"faq rv\" id=\"faq\"><\/div>\n<\/div><\/section>\n\n<section><div class=\"wrap rv\" style=\"text-align:center\">\n  <div class=\"sec-head\" style=\"margin-bottom:34px\"><h2>Stay Connected With Glamora<\/h2><p>Discover new styles, explore our latest collections, and stay inspired by the world of fashion.<\/p><\/div>\n  <div class=\"soc\" id=\"soc\"><\/div>\n<\/div><\/section>\n\n<section class=\"endc\"><div class=\"ph\" data-img=\"cta\" role=\"img\" aria-label=\"Warm interior with styled neutral clothing\"><\/div>\n  <div class=\"wrap rv\"><h2>Your Next Favorite Look Awaits.<\/h2><p>Discover styles for every moment with Glamora.<\/p><a class=\"btn\" href=\"#/collections\" style=\"background:var(--white);color:var(--ink)\">Explore Collections<\/a><\/div>\n<\/section>\n",blogs:"<section class=\"hero bl\" style=\"padding:0\"><div class=\"ph\" role=\"img\" aria-label=\"Fashion editorial with neutral outfits and fabric textures\"><\/div><div class=\"wrap\"><p class=\"eyebrow\">The Glamora Journal<\/p><h1>Style Inspiration for Every Day.<\/h1><p class=\"sub\">Discover fashion ideas, styling tips, seasonal trends, and inspiration to make every outfit your own.<\/p><div class=\"cta\"><a class=\"btn\" href=\"#stories\" style=\"background:var(--white);color:var(--ink)\">Explore the Journal<\/a><\/div><\/div><\/section>\n<section style=\"padding:90px 0 40px\"><div class=\"wrap\"><div class=\"feat rv\" id=\"feat\"><\/div><\/div><\/section>\n<section id=\"stories\" style=\"padding:60px 0 110px\"><div class=\"wrap\">\n<div class=\"sec-head\" style=\"margin-bottom:34px\"><h2>Latest Stories<\/h2><p>Fresh ideas, thoughtful styling, and inspiration from the world of fashion.<\/p><\/div>\n<p style=\"text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin:0 0 18px\" id=\"cl\">Explore by Category<\/p>\n<div class=\"cats\" id=\"cats\" role=\"group\" aria-labelledby=\"cl\"><\/div>\n<div class=\"sbar\"><label for=\"sq\" style=\"position:absolute;left:-9999px\">Search articles<\/label><svg viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/><\/svg><input id=\"sq\" type=\"search\" placeholder=\"Search fashion articles...\" autocomplete=\"off\"><button id=\"sx\" aria-label=\"Clear search\" hidden>\u00d7<\/button><\/div>\n<div class=\"bgrid\" id=\"bgrid\" aria-live=\"polite\"><\/div><\/div><\/section>\n<section class=\"inspo\"><div class=\"ph\" role=\"img\" aria-label=\"Styled outfits and fabric textures in a warm interior\"><\/div><div class=\"wrap rv\"><p class=\"eyebrow\">Find Your Signature Style<\/p><h2>Your Style. Your Story.<\/h2><p class=\"d\">Get inspired to experiment, discover new combinations, and make every outfit feel like your own.<\/p><a class=\"btn\" href=\"#/collections\" style=\"background:var(--white);color:var(--ink)\">Explore Collections<\/a><\/div><\/section>\n<section class=\"news\"><div class=\"wrap rv\"><h2>A Little More Style in Your Inbox<\/h2><p>Get fashion inspiration, styling ideas, and updates about new Glamora collections.<\/p><form id=\"nf\" novalidate><label for=\"em\" style=\"position:absolute;left:-9999px\">Email address<\/label><input id=\"em\" type=\"email\" placeholder=\"Your email address\" autocomplete=\"email\" aria-describedby=\"nm\"><button class=\"btn\" type=\"submit\">Subscribe<\/button><\/form><div class=\"msg\" id=\"nm\" role=\"status\" aria-live=\"polite\"><\/div><\/div><\/section>",women:"<section class=\"wh\"><div class=\"wrap whg\"><div class=\"wt\"><nav class=\"crumb\" aria-label=\"Breadcrumb\"><a href=\"#/\">Home<\/a> / <a href=\"#/collections\">Collections<\/a> / <span>Women<\/span><\/nav><p class=\"eyebrow\">The Women's Collection<\/p><h1>Effortless Elegance for Every Occasion.<\/h1><p class=\"sub\">Discover versatile styles for everyday moments, special occasions, and everything in between.<\/p><a class=\"btn\" href=\"#shop\">Shop Women<\/a><\/div><div class=\"wimg\"><div class=\"ph\" data-img=\"hero\" role=\"img\" aria-label=\"Woman in a yellow kurta with floral print and an embroidered neckline\"><\/div><\/div><\/div><\/section>\n<section id=\"shop\" style=\"background:var(--white)\"><div class=\"wrap\"><div class=\"head rv\"><h2>Shop Women<\/h2><p>Selected styles from the Women's collection.<\/p><\/div><div class=\"pgrid\" id=\"wgrid\"><\/div><\/div><\/section>\n<section style=\"background:var(--beige);padding:90px 0\"><div class=\"wrap\" style=\"text-align:center\"><h2 style=\"font-size:clamp(28px,3.4vw,40px)\">Explore More Collections<\/h2><div class=\"cta\" style=\"justify-content:center;margin-top:28px\"><a class=\"btn ghost\" href=\"#/collections/men\">Men<\/a><a class=\"btn ghost\" href=\"#/collections/children\">Children<\/a><a class=\"btn\" href=\"#/collections\">All Collections<\/a><\/div><\/div><\/section>",men:"<section class=\"wh\"><div class=\"wrap whg\"><div class=\"wt\"><nav class=\"crumb\" aria-label=\"Breadcrumb\"><a href=\"#/\">Home<\/a> / <a href=\"#/collections\">Collections<\/a> / <span>Men<\/span><\/nav><p class=\"eyebrow\">The Men's Collection<\/p><h1>Modern Essentials. Timeless Confidence.<\/h1><p class=\"sub\">Explore everyday essentials and contemporary styles designed for the modern wardrobe.<\/p><a class=\"btn\" href=\"#shop\">Shop Men<\/a><\/div><div class=\"wimg\"><div class=\"ph\" data-img=\"hero\" role=\"img\" aria-label=\"Man wearing a deep forest green kameez in soft sunlight\"><\/div><\/div><\/div><\/section>\n<section id=\"shop\" style=\"background:var(--white)\"><div class=\"wrap\"><div class=\"head rv\"><h2>Shop Men<\/h2><p>Selected styles from the Men's collection.<\/p><\/div><div class=\"pgrid\" id=\"mgrid\"><\/div><\/div><\/section>\n<section style=\"background:var(--beige);padding:90px 0\"><div class=\"wrap\" style=\"text-align:center\"><h2 style=\"font-size:clamp(28px,3.4vw,40px)\">Explore More Collections<\/h2><div class=\"cta\" style=\"justify-content:center;margin-top:28px\"><a class=\"btn ghost\" href=\"#/collections/women\">Women<\/a><a class=\"btn ghost\" href=\"#/collections/children\">Children<\/a><a class=\"btn\" href=\"#/collections\">All Collections<\/a><\/div><\/div><\/section>",children:"<section class=\"wh\"><div class=\"wrap whg\"><div class=\"wt\"><nav class=\"crumb\" aria-label=\"Breadcrumb\"><a href=\"#/\">Home<\/a> / <a href=\"#/collections\">Collections<\/a> / <span>Children<\/span><\/nav><p class=\"eyebrow\">The Children's Collection<\/p><h1>Comfort, Color, and Everyday Charm.<\/h1><p class=\"sub\">Explore comfortable, cheerful styles designed for the many moments of childhood.<\/p><a class=\"btn\" href=\"#shop\">Shop Children<\/a><\/div><div class=\"wimg\"><div class=\"ph\" data-img=\"hero\" role=\"img\" aria-label=\"Smiling girl in a sun-print tee and pink striped trousers sitting on an orange block\"><\/div><\/div><\/div><\/section>\n<section id=\"shop\" style=\"background:var(--white)\"><div class=\"wrap\"><div class=\"head rv\"><h2>Shop Children<\/h2><p>Selected styles from the Children's collection.<\/p><\/div><div class=\"pgrid\" id=\"kgrid\"><\/div><\/div><\/section>\n<section style=\"background:var(--beige);padding:90px 0\"><div class=\"wrap\" style=\"text-align:center\"><h2 style=\"font-size:clamp(28px,3.4vw,40px)\">Explore More Collections<\/h2><div class=\"cta\" style=\"justify-content:center;margin-top:28px\"><a class=\"btn ghost\" href=\"#/collections/men\">Men<\/a><a class=\"btn ghost\" href=\"#/collections/women\">Women<\/a><a class=\"btn\" href=\"#/collections\">All Collections<\/a><\/div><\/div><\/section>"};
+const STUB=(h,p)=>`<section class="stub"><div class="wrap"><h1>${h}</h1><p>${p}</p><a class="btn" href="#/">Back to Home</a></div></section>`;
+const META={home:["Glamora — Style That Speaks","Fashion for Men, Women and Children. Discover timeless essentials and contemporary style."],collections:["Collections | Glamora","Explore Glamora collections for Men, Women and Children."],about:["About Us | Glamora","Learn about Glamora: contemporary style and timeless essentials for Men, Women and Children."],contact:["Contact Us | Glamora","Contact Glamora for product questions, orders, sizing, returns or collaborations."],children:["Children | Glamora","Shop the Glamora Children's collection: comfort, color, and everyday charm."],men:["Men | Glamora","Shop the Glamora Men's collection: modern essentials, timeless confidence."],women:["Women | Glamora","Shop the Glamora Women's collection: effortless elegance for every occasion."],blogs:["Fashion Blog & Style Inspiration | Glamora","Fashion ideas, styling tips, seasonal trends and inspiration from the Glamora Journal."]};
+function setMeta(title,desc,og){
+ document.title=title;
+ const s=(sel,mk,v)=>{let m=document.head.querySelector(sel);if(!m){m=document.createElement("meta");mk(m);document.head.appendChild(m)}m.setAttribute("content",v)};
+ s('meta[name=description]',m=>m.name="description",desc);
+ s('meta[property="og:title"]',m=>m.setAttribute("property","og:title"),title);
+ s('meta[property="og:description"]',m=>m.setAttribute("property","og:description"),desc);
+ s('meta[property="og:type"]',m=>m.setAttribute("property","og:type"),og||"website");
+}
+function route(){
+ const path=(location.hash.replace(/^#/,"")||"/").split("?")[0].replace(/\/$/,"")||"/";
+ let key="stub",html,init,art,meta;
+ const old=$("ld");if(old)old.remove();
+ if(path==="/")key="home";else if(["/collections","/about","/contact","/blogs"].includes(path))key=path.slice(1);else if(path==="/collections/women")key="women";else if(path==="/collections/men")key="men";else if(path==="/collections/children")key="children";
+ else if(path.startsWith("/blogs/")){art=ARTICLES.find(a=>a.slug===path.slice(7))||(DATA&&DATA.redirects&&ARTICLES.find(a=>a.slug===DATA.redirects[path.slice(7)]));key=art?"article":"stub"}
+ if(key==="article"){html=articleHTML(art);init=initArticle;meta=[art.title+" | Glamora",art.excerpt,"article"];
+  const ld=document.createElement("script");ld.type="application/ld+json";ld.id="ld";ld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:art.title,description:art.excerpt,articleSection:art.cat,datePublished:art.date,author:{"@type":"Organization",name:"Glamora Editorial Team"},publisher:{"@type":"Organization",name:"Glamora"}});document.head.appendChild(ld)}
+ else if(key==="stub"){const isA=path.startsWith("/blogs/");html=STUB(isA?"Article not found":"Coming soon",isA?"We couldn't find that article.":"This page will be built in a later step.");meta=["Glamora","Glamora"]}
+ else{html=T[key];meta=META[key];init={home:initHome,collections:initCollections,about:()=>{imgs("about");applyAbout()},contact:()=>{imgs("contact");initContact()},blogs:initBlogs,women:initWomen,men:initMen,children:initKids}[key]}
+ const v=$("view");v.dataset.page=key;v.innerHTML=html;v.classList.remove("pg");void v.offsetWidth;v.classList.add("pg");
+ if(init)init();
+ setMeta(meta[0],meta[1],key==="article"?"article":"website");
+ bindContact();observe();scrollTo(0,0);
+ qa(".menu .l").forEach(a=>{a.classList.remove("cur");a.removeAttribute("aria-current")});
+ const cur={home:'.menu a[href="#/"]',about:'.menu a[href="#/about"]',contact:'.menu a[href="#/contact"]',blogs:'.menu a[href="#/blogs"]',article:'.menu a[href="#/blogs"]',collections:"#ddb",women:"#ddb",men:"#ddb",children:"#ddb"}[key];
+ const c=cur&&document.querySelector(cur);if(c){c.classList.add("cur");if(c.tagName==="A")c.setAttribute("aria-current","page")}
+ drawer(false);dd.classList.remove("open");
+}
+
+/* ---------- shell: header, dropdown, drawer, in-page anchors ---------- */
+const hdr=$("hdr");addEventListener("scroll",()=>hdr.classList.toggle("scrolled",scrollY>30),{passive:true});
+const dd=$("dd"),ddb=$("ddb");
+ddb.addEventListener("click",()=>{const o=dd.classList.toggle("open");ddb.setAttribute("aria-expanded",o)});
+document.addEventListener("click",e=>{if(!dd.contains(e.target)){dd.classList.remove("open");ddb.setAttribute("aria-expanded","false")}});
+const dr=$("drawer"),sc=$("scrim"),bg=$("burger");
+function drawer(o){dr.classList.toggle("open",o);sc.classList.toggle("open",o);dr.setAttribute("aria-hidden",!o);bg.setAttribute("aria-expanded",o);if(o)$("close").focus()}
+bg.onclick=()=>drawer(true);sc.onclick=()=>drawer(false);$("close").onclick=()=>drawer(false);
+addEventListener("keydown",e=>{if(e.key==="Escape"){drawer(false);dd.classList.remove("open")}});
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]:not([href^="#/"]):not([data-go])');if(!a)return;e.preventDefault();const t=$(a.getAttribute("href").slice(1));if(t)t.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})});
+addEventListener("hashchange",route);loadContent().then(()=>{applyGlobal();route()});
+
+/* ---------- generated editorial artwork: fills every empty image slot until real photos are added ---------- */
+const PAL=[{w:["#eadfce","#d6c3a9"],f:["#e8dbc6","#f7f0e4"],k:"#cdb99f"},{w:["#e3d3bf","#c9b08e"],f:["#e2d3bb","#f3eadb"],k:"#b89f7e"},{w:["#ddd0c0","#b9a58d"],f:["#dccdb6","#efe5d4"],k:"#a6916f"},{w:["#efe4d3","#dccbb0"],f:["#ebdfca","#f9f3e8"],k:"#d3c0a3"}];
+const OUT=[["#d9c1a0","#f2e9d9"],["#c9b08e","#fbf7ef"],["#8d7d69","#e9e1d3"],["#bfae94","#f6efe3"],["#5a4d3f","#e9e1d3"],["#e3d3bd","#8a7a66"]];
+const HAIR=["#d8b580","#5a4030","#2f2620","#b98f5a"];
+function fig(x,y,s,t,i){
+ const [a,b]=OUT[i%OUT.length],h=HAIR[i%HAIR.length],sk="#e4c6aa",d="#4d4136";
+ let g=`<g transform="translate(${x} ${y}) scale(${s})"><ellipse rx="60" ry="8" fill="#6b563c" opacity=".22"/>`;
+ if(t==="woman"){g+=`<path d="M-15 -196 Q-36 -130 -24 -94 L24 -94 Q36 -130 15 -196Z" fill="${h}"/><path d="M-20 -122H20L52 -10H-52Z" fill="${b}"/><path d="M0 -122V-10" stroke="#d6c8b0" stroke-width="2"/><path d="M-28 -214H28L35 -118H-35Z" fill="${a}"/><path d="M-28 -210L-41 -120L-31 -118L-23 -198ZM28 -210L41 -120L31 -118L23 -198Z" fill="${a}"/><rect x="-26" y="-14" width="22" height="14" rx="3" fill="${d}"/><rect x="4" y="-14" width="22" height="14" rx="3" fill="${d}"/>`}
+ else{g+=`<path d="M-25 -128H25L28 -12H3L0 -112L-3 -12H-28Z" fill="${b}"/><rect x="-32" y="-12" width="28" height="12" rx="3" fill="${d}"/><rect x="4" y="-12" width="28" height="12" rx="3" fill="${d}"/><path d="M-33 -216H33L39 -120H-39Z" fill="${a}"/><path d="M-33 -212L-45 -122L-34 -120L-27 -200ZM33 -212L45 -122L34 -120L27 -200Z" fill="${a}"/><path d="M-7 -216L7 -216L4 -150L-4 -150Z" fill="#faf6ee"/>`}
+ return g+`<rect x="-6" y="-234" width="12" height="20" fill="${sk}"/><ellipse cy="-248" rx="14" ry="16" fill="${sk}"/><path d="M-15 -252Q0 -274 15 -252Q6 -264 -15 -252Z" fill="${h}"/></g>`;
+}
+function scene(kind,n){
+ const p=PAL[n%4],L=n%2,wx=L?440:20;
+ let s=`<svg class="art" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="a${n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.w[0]}"/><stop offset="1" stop-color="${p.w[1]}"/></linearGradient><linearGradient id="b${n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.f[0]}"/><stop offset="1" stop-color="${p.f[1]}"/></linearGradient><linearGradient id="c${n}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient></defs><rect width="800" height="600" fill="url(#a${n})"/>`;
+ if(kind==="arch"){for(let k=0;k<3;k++){const x=80+k*240;s+=`<rect x="${x}" y="70" width="180" height="420" fill="${p.k}"/><path d="M${x+14} 490V190a76 76 0 01152 0V490Z" fill="#f8f2e8"/>`}}
+ else{s+=`<rect x="${wx}" y="0" width="340" height="480" fill="${p.k}"/>`;for(let k=0;k<4;k++)s+=`<rect x="${wx+14+k*82}" y="36" width="62" height="444" fill="#f8f2e8"/>`}
+ s+=`<rect y="470" width="800" height="130" fill="url(#b${n})"/><g fill="url(#c${n})" opacity=".7"><polygon points="${wx+10},480 ${wx+110},480 ${wx+190},600 ${wx-40},600"/><polygon points="${wx+190},480 ${wx+290},480 ${wx+400},600 ${wx+150},600"/></g>`;
+ const F={men:()=>fig(L?250:550,530,1.4,"man",n),women:()=>fig(L?250:550,530,1.4,"woman",n),children:()=>fig(330,535,.82,"woman",n+1)+fig(450,535,.74,"man",n+2),family:()=>fig(250,535,1.15,"man",n)+fig(400,535,1.1,"woman",n+1)+fig(520,540,.72,"woman",n+3)+fig(610,540,.66,"man",n+4),arch:()=>`<rect x="300" y="430" width="200" height="30" fill="#8a7358"/><rect x="310" y="460" width="10" height="30" fill="#6e5a43"/><rect x="480" y="460" width="10" height="30" fill="#6e5a43"/><path d="M330 430q20-50 70-40t70 40z" fill="${OUT[n%6][0]}"/>`};
+ return s+(F[kind]||F.women)()+"</svg>";
+}
+function fabric(n){const c=n%2?["#d9c7ab","#bfa882","#a38b66"]:["#e7dcc8","#cdb99a","#b39b78"];let s=`<svg class="art" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="800" height="600" fill="${c[0]}"/>`;for(let k=0;k<6;k++){const y=40+k*105;s+=`<path d="M0 ${y}Q200 ${y-70} 400 ${y}T800 ${y}V620H0Z" fill="${c[k%3]}" opacity=".5"/><path d="M0 ${y+14}Q200 ${y-56} 400 ${y+14}T800 ${y+14}" stroke="#fff" stroke-opacity=".35" stroke-dasharray="6 8" fill="none"/>`}return s+"</svg>"}
+function garment(t,n){const c=OUT[n%6][0],e=`<ellipse cx="200" cy="470" rx="120" ry="10" fill="#4d4136" opacity=".2"/><path d="M200 40v22" stroke="#4d4136" stroke-width="3"/><path d="M160 74Q200 50 240 74" stroke="#4d4136" stroke-width="3" fill="none"/>`;
+ const P={shirt:`<path d="M130 100L86 132L40 226L80 248L110 196V440H290V196L320 248L360 226L314 132L270 100Q200 140 130 100Z" fill="${c}"/><path d="M130 100Q200 140 270 100L250 86Q200 112 150 86Z" fill="#fff" opacity=".6"/><path d="M200 120V440" stroke="#4d4136" stroke-opacity=".2"/>`,jacket:`<path d="M120 96L70 128L30 300L72 312L108 200V450H292V200L328 312L370 300L330 128L280 96L248 130L200 450L152 130Z" fill="${c}"/><path d="M152 130L200 260L248 130" fill="#fff" opacity=".35"/><path d="M200 260V450" stroke="#4d4136" stroke-opacity=".25"/>`,dress:`<path d="M156 90L172 80L200 118L228 80L244 90L258 220L338 450H62L142 220Z" fill="${c}"/><path d="M142 220H258" stroke="#4d4136" stroke-opacity=".25"/><path d="M200 220V450" stroke="#fff" stroke-opacity=".3"/>`};
+ return `<svg class="art" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${e}${P[t]||P.shirt}</svg>`}
+let artN=0;
+function kindOf(el){
+ const aria=el.getAttribute("aria-label")||"",box=el.closest("a,article,figure,section"),head=(box&&box.querySelector("h1,h2,h3")||{}).textContent||"",prod=el.closest(".pcard");
+ const lab=(aria+" "+((prod||!aria)?head:"")).toLowerCase();
+ if(el.closest(".inspo,.endc,.endcta"))return["scene","arch"];
+ if(prod||/shirt|\btee\b|jacket|dress|suit/.test(lab)&&!/children|kids/.test(aria.toLowerCase())){if(/jacket/.test(lab))return["g","jacket"];if(/dress|suit|maxi|lawn/.test(lab))return["g","dress"];if(/shirt|tee/.test(lab))return["g","shirt"]}
+ if(/campaign|a man, a woman|family|season/.test(lab))return["scene","family"];
+ if(/fabric|texture|stitch|folded|detail/.test(lab))return["fabric"];
+ if(/child|kids|boys|girls/.test(lab))return["scene","children"];
+ if(/women|woman|elegant|person|individual|silhouette|female/.test(lab))return["scene","women"];
+ if(/\bmen|menswear|\bman\b|male/.test(lab))return["scene","men"];
+ if(/outfit|layer|wardrobe|essentials|accessor/.test(lab))return["g","jacket"];
+ if(el.closest(".hero"))return["scene","family"];
+ return["scene",artN%2?"arch":"women"];
+}
+let busy2=false;
+function decorate(){if(busy2)return;busy2=true;
+ qa(".ph").forEach(el=>{if(el.dataset.done||el.classList.contains("scene")||el.style.getPropertyValue("--img"))return;el.dataset.done=1;
+  const [k,t]=kindOf(el),n=artN++;el.innerHTML=k==="fabric"?fabric(n):k==="g"?garment(t,n):scene(t,n)});
+ busy2=false}
+new MutationObserver(()=>decorate()).observe($("view"),{childList:true,subtree:true});decorate();
+
+</script>
+</body></html>

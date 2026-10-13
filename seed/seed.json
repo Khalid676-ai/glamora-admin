@@ -1,0 +1,684 @@
+{
+ "collections": [
+  {
+   "slug": "men",
+   "name": "Men",
+   "description": "Modern essentials. Timeless confidence.",
+   "banner": "men-4.webp",
+   "thumbnail": "men-4.webp",
+   "sort": 1
+  },
+  {
+   "slug": "women",
+   "name": "Women",
+   "description": "Effortless elegance for every occasion.",
+   "banner": "women-4.webp",
+   "thumbnail": "women-4.webp",
+   "sort": 2
+  },
+  {
+   "slug": "children",
+   "name": "Children",
+   "description": "Comfort, color, and everyday charm.",
+   "banner": "kids-1.webp",
+   "thumbnail": "kids-1.webp",
+   "sort": 3
+  }
+ ],
+ "categories": [
+  {
+   "slug": "casual-wear",
+   "name": "Casual Wear"
+  },
+  {
+   "slug": "formal-wear",
+   "name": "Formal Wear"
+  },
+  {
+   "slug": "traditional-wear",
+   "name": "Traditional Wear"
+  },
+  {
+   "slug": "kids-clothing",
+   "name": "Kids' Clothing",
+   "collection": "children"
+  },
+  {
+   "slug": "accessories",
+   "name": "Accessories"
+  }
+ ],
+ "products": [
+  {
+   "slug": "floral-border-print-kurta",
+   "sku": "GLM-W-001",
+   "name": "Floral Border Print Kurta",
+   "short_desc": "A long printed kurta with a golden floral border.",
+   "description": "A long printed kurta with a golden floral border.",
+   "collection": "women",
+   "category": "traditional-wear",
+   "image": "women-1.webp",
+   "price": 8490,
+   "sale_price": 6990,
+   "colors": [
+    "#3B4A6B",
+    "#C9547A",
+    "#C9A24A"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 20,
+   "featured": 0,
+   "tags": [
+    "kurta",
+    "printed"
+   ]
+  },
+  {
+   "slug": "printed-lawn-suit",
+   "sku": "GLM-W-002",
+   "name": "Printed Lawn Suit",
+   "short_desc": "A rose-print kurta with a matching dupatta.",
+   "description": "A rose-print kurta with a matching dupatta.",
+   "collection": "women",
+   "category": "traditional-wear",
+   "image": "women-2.webp",
+   "price": 4990,
+   "sale_price": null,
+   "colors": [
+    "#C9D83A",
+    "#D63F8F"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 20,
+   "featured": 1,
+   "tags": [
+    "suit",
+    "printed"
+   ]
+  },
+  {
+   "slug": "blossom-pink-printed-kurta",
+   "sku": "GLM-W-003",
+   "name": "Blossom Pink Printed Kurta",
+   "short_desc": "A pink kurta with a delicate floral print and scalloped trim.",
+   "description": "A pink kurta with a delicate floral print and scalloped trim.",
+   "collection": "women",
+   "category": "traditional-wear",
+   "image": "women-3.webp",
+   "price": 5490,
+   "sale_price": null,
+   "colors": [
+    "#F0B6C4",
+    "#C9A0D8"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 20,
+   "featured": 4,
+   "tags": [
+    "kurta",
+    "floral"
+   ]
+  },
+  {
+   "slug": "sunshine-embroidered-kurta",
+   "sku": "GLM-W-004",
+   "name": "Sunshine Embroidered Kurta",
+   "short_desc": "A yellow kurta with a floral print and an embroidered neckline.",
+   "description": "A yellow kurta with a floral print and an embroidered neckline.",
+   "collection": "women",
+   "category": "traditional-wear",
+   "image": "women-4.webp",
+   "price": 7990,
+   "sale_price": 6490,
+   "colors": [
+    "#E9C42E",
+    "#E8809A"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 20,
+   "featured": 0,
+   "tags": [
+    "kurta",
+    "embroidered"
+   ]
+  },
+  {
+   "slug": "stone-classic-kameez",
+   "sku": "GLM-M-001",
+   "name": "Stone Classic Kameez",
+   "short_desc": "A collared kameez in a soft stone shade with matching shalwar.",
+   "description": "A collared kameez in a soft stone shade with matching shalwar.",
+   "collection": "men",
+   "category": "traditional-wear",
+   "image": "men-1.webp",
+   "price": 4490,
+   "sale_price": null,
+   "colors": [
+    "#BDAE9A",
+    "#1F1F1F"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 18,
+   "featured": 2,
+   "tags": [
+    "kameez"
+   ]
+  },
+  {
+   "slug": "charcoal-collared-kameez",
+   "sku": "GLM-M-002",
+   "name": "Charcoal Collared Kameez",
+   "short_desc": "A collared kameez in charcoal.",
+   "description": "A collared kameez in charcoal.",
+   "collection": "men",
+   "category": "traditional-wear",
+   "image": "men-2.webp",
+   "price": 4990,
+   "sale_price": 3990,
+   "colors": [
+    "#4F5357",
+    "#BDAE9A"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 18,
+   "featured": 0,
+   "tags": [
+    "kameez"
+   ]
+  },
+  {
+   "slug": "midnight-black-kameez",
+   "sku": "GLM-M-003",
+   "name": "Midnight Black Kameez",
+   "short_desc": "A collared kameez in black.",
+   "description": "A collared kameez in black.",
+   "collection": "men",
+   "category": "traditional-wear",
+   "image": "men-3.webp",
+   "price": 4790,
+   "sale_price": null,
+   "colors": [
+    "#1F1F1F",
+    "#4F5357"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 18,
+   "featured": 0,
+   "tags": [
+    "kameez"
+   ]
+  },
+  {
+   "slug": "forest-green-kameez",
+   "sku": "GLM-M-004",
+   "name": "Forest Green Kameez",
+   "short_desc": "A kameez in deep forest green.",
+   "description": "A kameez in deep forest green.",
+   "collection": "men",
+   "category": "traditional-wear",
+   "image": "men-4.webp",
+   "price": 5990,
+   "sale_price": null,
+   "colors": [
+    "#1E3A33",
+    "#1F1F1F"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 18,
+   "featured": 0,
+   "tags": [
+    "kameez"
+   ]
+  },
+  {
+   "slug": "sage-shalwar-kameez-set",
+   "sku": "GLM-M-005",
+   "name": "Sage Shalwar Kameez Set",
+   "short_desc": "A sage green kameez and shalwar set.",
+   "description": "A sage green kameez and shalwar set.",
+   "collection": "men",
+   "category": "traditional-wear",
+   "image": "men-5.webp",
+   "price": 7490,
+   "sale_price": 6490,
+   "colors": [
+    "#A9AE9C",
+    "#BDAE9A"
+   ],
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "focus": 18,
+   "featured": 0,
+   "tags": [
+    "set"
+   ]
+  },
+  {
+   "slug": "sunshine-tee-striped-set",
+   "sku": "GLM-K-001",
+   "name": "Sunshine Tee & Striped Culottes",
+   "short_desc": "A sun-print tee with pink striped culottes.",
+   "description": "A sun-print tee with pink striped culottes.",
+   "collection": "children",
+   "category": "kids-clothing",
+   "image": "kids-1.webp",
+   "price": 2790,
+   "sale_price": null,
+   "colors": [
+    "#FFFFFF",
+    "#EFA6BC"
+   ],
+   "sizes": [
+    "2-3Y",
+    "4-5Y",
+    "6-7Y"
+   ],
+   "focus": 8,
+   "featured": 0,
+   "tags": [
+    "girls",
+    "set"
+   ]
+  },
+  {
+   "slug": "girls-mint-heart-set",
+   "sku": "GLM-K-002",
+   "name": "Girls Mint Heart Print Set",
+   "short_desc": "A mint heart-print top and culottes set.",
+   "description": "A mint heart-print top and culottes set.",
+   "collection": "children",
+   "category": "kids-clothing",
+   "image": "kids-2.webp",
+   "price": 3490,
+   "sale_price": 2990,
+   "colors": [
+    "#A8DCCB",
+    "#F2C4B8"
+   ],
+   "sizes": [
+    "2-3Y",
+    "4-5Y",
+    "6-7Y"
+   ],
+   "focus": 8,
+   "featured": 3,
+   "tags": [
+    "girls",
+    "set"
+   ]
+  },
+  {
+   "slug": "blush-ruffle-baby-romper",
+   "sku": "GLM-K-003",
+   "name": "Blush Ruffle Baby Romper",
+   "short_desc": "A blush romper with ruffle shoulders and lace detail.",
+   "description": "A blush romper with ruffle shoulders and lace detail.",
+   "collection": "children",
+   "category": "kids-clothing",
+   "image": "kids-3.webp",
+   "price": 2690,
+   "sale_price": 2290,
+   "colors": [
+    "#E2B5B5",
+    "#F0D9D2"
+   ],
+   "sizes": [
+    "6-12M",
+    "12-18M"
+   ],
+   "focus": 8,
+   "featured": 0,
+   "tags": [
+    "baby"
+   ]
+  },
+  {
+   "slug": "boys-rocket-print-set",
+   "sku": "GLM-K-004",
+   "name": "Boys Rocket Print Set",
+   "short_desc": "A yellow rocket-print tee with cream shorts.",
+   "description": "A yellow rocket-print tee with cream shorts.",
+   "collection": "children",
+   "category": "kids-clothing",
+   "image": "kids-4.webp",
+   "price": 2490,
+   "sale_price": null,
+   "colors": [
+    "#E4B52A",
+    "#E9E1D3"
+   ],
+   "sizes": [
+    "2-3Y",
+    "4-5Y",
+    "6-7Y"
+   ],
+   "focus": 8,
+   "featured": 0,
+   "tags": [
+    "boys",
+    "set"
+   ]
+  }
+ ],
+ "posts": [
+  {
+   "slug": "build-a-timeless-wardrobe",
+   "featured": 1,
+   "title": "How to Build a Timeless Wardrobe",
+   "excerpt": "Discover versatile wardrobe essentials, thoughtful combinations, and simple styling ideas that help you create outfits for different occasions.",
+   "category": "Wardrobe Essentials",
+   "body": [
+    {
+     "type": "p",
+     "text": "A timeless wardrobe is less about owning more and more about owning pieces that work together. Start with what you reach for most, then build outward."
+    },
+    {
+     "type": "h",
+     "text": "Start with a calm color base"
+    },
+    {
+     "type": "p",
+     "text": "Choose a few neutral shades you enjoy wearing, such as ivory, beige, charcoal or navy. When most pieces share a base, almost everything can be mixed with everything else."
+    },
+    {
+     "type": "h",
+     "text": "Choose pieces that do more than one job"
+    },
+    {
+     "type": "p",
+     "text": "A well-fitting shirt can be worn open over a tee, buttoned up for a smarter look, or tucked in for a dressier one. Before adding something new, ask how many outfits it could join."
+    },
+    {
+     "type": "h",
+     "text": "Add personality in small steps"
+    },
+    {
+     "type": "p",
+     "text": "Once the base is in place, bring in a scarf, a bold color or an interesting texture. Small touches let you refresh familiar outfits without starting over."
+    }
+   ]
+  },
+  {
+   "slug": "effortless-everyday-style-for-women",
+   "featured": 0,
+   "title": "Effortless Everyday Style for Women",
+   "excerpt": "Explore versatile outfit combinations that balance comfort, confidence, and contemporary style.",
+   "category": "Women's Fashion",
+   "body": [
+    {
+     "type": "p",
+     "text": "Everyday style works best when it feels easy. These ideas focus on combinations that are comfortable to wear and simple to repeat."
+    },
+    {
+     "type": "h",
+     "text": "Pick one hero piece"
+    },
+    {
+     "type": "p",
+     "text": "Let one item lead, perhaps a flowing dress or a structured jacket, and keep everything else quiet. This keeps an outfit balanced without much effort."
+    },
+    {
+     "type": "h",
+     "text": "Mind proportions"
+    },
+    {
+     "type": "p",
+     "text": "Pair something relaxed with something more fitted. A loose top with slim trousers, or a fitted top with a wide skirt, often looks considered."
+    },
+    {
+     "type": "h",
+     "text": "Finish with comfort in mind"
+    },
+    {
+     "type": "p",
+     "text": "Shoes and layers should suit your day. An outfit you feel at ease in tends to look more confident too."
+    }
+   ]
+  },
+  {
+   "slug": "mens-wardrobe-essentials-worth-knowing",
+   "featured": 0,
+   "title": "Men's Wardrobe Essentials Worth Knowing",
+   "excerpt": "Discover classic clothing staples and practical ways to combine them for different occasions.",
+   "category": "Men's Fashion",
+   "body": [
+    {
+     "type": "p",
+     "text": "A small group of reliable pieces can cover most occasions. Here is a practical way to think about the basics."
+    },
+    {
+     "type": "h",
+     "text": "The everyday shirt"
+    },
+    {
+     "type": "p",
+     "text": "A clean, well-fitting shirt in a neutral shade is a useful starting point. Wear it tucked or untucked, under a jacket or on its own."
+    },
+    {
+     "type": "h",
+     "text": "A dependable outer layer"
+    },
+    {
+     "type": "p",
+     "text": "A casual jacket adds structure to simple outfits and works across seasons when chosen in a versatile color."
+    },
+    {
+     "type": "h",
+     "text": "Trousers that fit well"
+    },
+    {
+     "type": "p",
+     "text": "Fit matters more than trend. Trousers that sit comfortably and hang cleanly make everything above them look better."
+    }
+   ]
+  },
+  {
+   "slug": "comfort-meets-style-dressing-kids",
+   "featured": 0,
+   "title": "Comfort Meets Style: Dressing Kids for Every Day",
+   "excerpt": "Explore practical outfit ideas that combine comfort, movement, and playful style for children.",
+   "category": "Kids' Style",
+   "body": [
+    {
+     "type": "p",
+     "text": "Children need clothes they can move in, and parents like outfits that look good. The two goals fit together well."
+    },
+    {
+     "type": "h",
+     "text": "Let them move"
+    },
+    {
+     "type": "p",
+     "text": "Soft fabrics and easy fits make it simpler for kids to play, climb and run. Check that waistbands and sleeves feel comfortable."
+    },
+    {
+     "type": "h",
+     "text": "Mix and match"
+    },
+    {
+     "type": "p",
+     "text": "Choose a few pieces in colors that go together. Children can then put outfits together on their own, which many enjoy."
+    },
+    {
+     "type": "h",
+     "text": "Keep a little playfulness"
+    },
+    {
+     "type": "p",
+     "text": "A bright color or a fun print adds charm without making an outfit hard to wear day to day."
+    }
+   ]
+  },
+  {
+   "slug": "five-simple-ways-to-refresh-your-outfit",
+   "featured": 0,
+   "title": "Five Simple Ways to Refresh Your Outfit",
+   "excerpt": "Learn how accessories, color combinations, and thoughtful layering can transform familiar pieces.",
+   "category": "Styling Tips",
+   "body": [
+    {
+     "type": "p",
+     "text": "You do not always need something new. A few small changes can make a familiar outfit feel fresh."
+    },
+    {
+     "type": "h",
+     "text": "Change the layer"
+    },
+    {
+     "type": "p",
+     "text": "Add a jacket, cardigan or waistcoat to give a favorite outfit a different shape."
+    },
+    {
+     "type": "h",
+     "text": "Try a new color pairing"
+    },
+    {
+     "type": "p",
+     "text": "Swap one neutral for another, or add a single accent color to an all-neutral look."
+    },
+    {
+     "type": "h",
+     "text": "Play with accessories"
+    },
+    {
+     "type": "p",
+     "text": "A scarf, belt or simple jewelry can shift the mood of an outfit in seconds."
+    },
+    {
+     "type": "h",
+     "text": "Adjust the fit"
+    },
+    {
+     "type": "p",
+     "text": "Rolling sleeves, tucking a shirt or cuffing trousers changes the silhouette without changing the clothes."
+    },
+    {
+     "type": "h",
+     "text": "Rework the shoes"
+    },
+    {
+     "type": "p",
+     "text": "A different pair of shoes can move the same outfit from relaxed to polished."
+    }
+   ]
+  },
+  {
+   "slug": "fashion-trends-to-inspire-your-next-look",
+   "featured": 0,
+   "title": "Fashion Trends to Inspire Your Next Look",
+   "excerpt": "Explore contemporary silhouettes, colors, and styling ideas that can inspire your personal wardrobe.",
+   "category": "Fashion Trends",
+   "body": [
+    {
+     "type": "p",
+     "text": "Trends are best used as inspiration. Take what suits you and leave the rest."
+    },
+    {
+     "type": "h",
+     "text": "Silhouettes to explore"
+    },
+    {
+     "type": "p",
+     "text": "Relaxed shapes, long layers and clean tailoring all have fans. Try one in a piece you already like before committing to a full look."
+    },
+    {
+     "type": "h",
+     "text": "Colors to consider"
+    },
+    {
+     "type": "p",
+     "text": "Earthy neutrals and soft tones sit well with most wardrobes and are easy to combine with what you own."
+    },
+    {
+     "type": "h",
+     "text": "Make it personal"
+    },
+    {
+     "type": "p",
+     "text": "The strongest looks feel like the wearer. Borrow an idea, then adapt it to your own taste and routine."
+    }
+   ]
+  },
+  {
+   "slug": "versatile-wardrobe-on-a-budget",
+   "featured": 0,
+   "title": "Building a Versatile Wardrobe on a Budget",
+   "excerpt": "Learn how to prioritize useful pieces and create more outfit combinations from your existing wardrobe.",
+   "category": "Wardrobe Essentials",
+   "body": [
+    {
+     "type": "p",
+     "text": "A flexible wardrobe does not need a large budget. It needs a little planning."
+    },
+    {
+     "type": "h",
+     "text": "Look at what you already have"
+    },
+    {
+     "type": "p",
+     "text": "Lay out your clothes and note what you wear often. Gaps and duplicates usually become clear quickly."
+    },
+    {
+     "type": "h",
+     "text": "Prioritize pieces that combine well"
+    },
+    {
+     "type": "p",
+     "text": "Before buying, picture three outfits with the item using things you already own. If you can't, it may be best to wait."
+    },
+    {
+     "type": "h",
+     "text": "Buy with intention"
+    },
+    {
+     "type": "p",
+     "text": "Choose fewer pieces that you will wear often over many that stay in the cupboard. Plan purchases around the gaps you found."
+    }
+   ]
+  }
+ ]
+}
